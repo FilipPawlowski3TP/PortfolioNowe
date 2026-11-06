@@ -1,0 +1,75 @@
+/* Base styles — minimal reset + typography (extended in Phase 3) */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-h) + 1rem);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-text, var(--font-fallback));
+  font-size: var(--fs-text);
+  line-height: var(--lh-body);
+  text-wrap: pretty;
+  hyphens: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display, var(--font-fallback));
+  line-height: var(--lh-tight);
+  text-wrap: balance;
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--c-focus);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--sp-4);
+  top: var(--sp-4);
+  transform: translateY(-200%);
+  padding: var(--sp-2) var(--sp-4);
+  background: var(--c-surface-strong);
+  color: var(--c-text);
+  border: var(--line-strong);
+  z-index: 100;
+  transition: transform var(--d-fast) var(--e-out);
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: var(--d-fast) !important;
+    scroll-behavior: auto !important;
+  }
+}
