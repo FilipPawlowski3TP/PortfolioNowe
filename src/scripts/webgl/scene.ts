@@ -9,7 +9,6 @@ import atmosphereVert from './shaders/atmosphere.vert.glsl?raw';
 import atmosphereFrag from './shaders/atmosphere.frag.glsl?raw';
 import layersVert from './shaders/layers.vert.glsl?raw';
 import layersFrag from './shaders/layers.frag.glsl?raw';
-import { createParticles, MAX_PARTICLES, type ParticlesHandle } from './particles';
 import { createDevices, type DevicesHandle } from './devices';
 import { AdaptiveController } from './adaptive';
 import { updateAct, type SceneState } from './acts';
@@ -90,9 +89,7 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
     scene.add(mesh);
   });
 
-  // --- Dust particles ---
-  const particles: ParticlesHandle = createParticles(uniforms);
-  scene.add(particles.points);
+  // --- Dust particles removed per owner feedback (dots in the background) ---
 
   // --- Device mockups with case-study textures (Tier 2 only) ---
   let devices: DevicesHandle | null = null;
@@ -108,9 +105,6 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
     setDpr(dpr: number) {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dpr));
       (uniforms.uPixelRatio.value as number) = Math.min(window.devicePixelRatio || 1, dpr);
-    },
-    setParticleCount(count: number) {
-      particles.setCount(Math.min(count, MAX_PARTICLES));
     },
     downgradeTier() {
       // Step down hard: drop the scene entirely (Tier 0 fallback) rather than
@@ -238,7 +232,7 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
       getRenderInfo: () => ({
         calls: renderer.info.render.calls,
         triangles: renderer.info.render.triangles,
-        particles: particles.points.geometry.drawRange.count,
+        particles: 0,
         dpr: renderer.getPixelRatio(),
       }),
     };
@@ -255,7 +249,6 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
       window.clearTimeout(resizeTimer);
       canvas.removeEventListener('webglcontextlost', onContextLost);
       canvas.removeEventListener('webglcontextrestored', onContextRestored);
-      particles.dispose();
       devices?.dispose();
       skyGeometry.dispose();
       skyMaterial.dispose();
