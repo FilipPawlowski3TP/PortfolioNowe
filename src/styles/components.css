@@ -134,6 +134,11 @@
   border-bottom-color: var(--c-accent);
 }
 
+.site-nav__list a[aria-current] {
+  color: var(--c-dawn-400);
+  border-bottom-color: var(--c-dawn-400);
+}
+
 .nav-mobile {
   display: none;
 }
@@ -312,9 +317,9 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, var(--c-bg) 55%, color-mix(in oklab, var(--c-dawn-400) 7%, var(--c-bg)) 100%),
-    repeating-linear-gradient(0deg, transparent 0 47px, color-mix(in oklab, var(--c-ice-300) 7%, transparent) 47px 48px),
-    repeating-linear-gradient(90deg, transparent 0 47px, color-mix(in oklab, var(--c-ice-300) 7%, transparent) 47px 48px);
+    radial-gradient(120% 90% at 50% 115%, color-mix(in oklab, var(--c-dawn-400) 18%, transparent) 0%, transparent 55%),
+    radial-gradient(80% 60% at 82% 20%, color-mix(in oklab, var(--c-ice-300) 8%, transparent) 0%, transparent 60%),
+    linear-gradient(180deg, var(--c-bg) 0%, color-mix(in oklab, var(--c-night-900) 92%, var(--c-bg)) 100%);
 }
 
 @media (max-width: 48rem) {

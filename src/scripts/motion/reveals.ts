@@ -43,6 +43,71 @@ export function initReveals(): void {
       });
     });
 
+    // --- Global scrub choreography (G2 feedback: the whole page should flow
+    // like the pinned Proces sequence). Transform-only: text contrast is never
+    // broken mid-scroll. ---
+
+    // Hero exits with parallax
+    gsap.to('.hero__content', {
+      yPercent: -10,
+      ease: 'none',
+      scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.5 },
+    });
+
+    // Offer cards rise in a wave as the section enters
+    gsap.from('.offer-card', {
+      y: 60,
+      stagger: 0.12,
+      ease: 'none',
+      scrollTrigger: { trigger: '.offer__grid', start: 'top 90%', end: 'top 35%', scrub: 0.6 },
+    });
+
+    // Standard + FAQ + contact: gentle staggered rises tied to scroll
+    gsap.from('.standard-item', {
+      y: 50,
+      stagger: 0.1,
+      ease: 'none',
+      scrollTrigger: { trigger: '.standard__grid', start: 'top 88%', end: 'top 40%', scrub: 0.6 },
+    });
+    gsap.from('.faq-item', {
+      y: 30,
+      stagger: 0.08,
+      ease: 'none',
+      scrollTrigger: { trigger: '.faq__list', start: 'top 88%', end: 'top 45%', scrub: 0.6 },
+    });
+    gsap.from('.contact__grid', {
+      y: 60,
+      ease: 'none',
+      scrollTrigger: { trigger: '.contact', start: 'top 88%', end: 'top 45%', scrub: 0.6 },
+    });
+
+    // --- Act IV (Realizacje): short pinned sequence on desktop, like Proces ---
+    mm.add('(prefers-reduced-motion: no-preference) and (min-width: 60rem)', () => {
+      const steps = gsap.utils.toArray<HTMLElement>('.case-study__step');
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.case-study',
+          start: 'top top+=72',
+          end: '+=100%',
+          pin: true,
+          scrub: 0.4,
+          invalidateOnRefresh: true,
+        },
+      });
+      tl.fromTo(
+        '.case-study__mockups',
+        { y: 30 },
+        { y: -30, duration: steps.length, ease: 'none' },
+        0,
+      );
+      steps.forEach((step, i) => {
+        // Labels glow from structural blue to the warm accent (both pass AA)
+        tl.fromTo(step, { color: '#8FD3FF' }, { color: '#FF8A5B', duration: 1, ease: 'none' }, i);
+        const body = step.nextElementSibling;
+        if (body) tl.fromTo(body, { y: 24 }, { y: 0, duration: 1, ease: 'none' }, i);
+      });
+    });
+
     // --- Act III (Proces): pinned step sequence on desktop only (<= 2 screens).
     // Accessibility over effect: text never dims below AA contrast — the
     // progression is carried by motion + the decorative step numbers.

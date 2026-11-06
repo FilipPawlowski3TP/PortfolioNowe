@@ -8,6 +8,37 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// --- Scrollspy: mark the current section in the nav (G2 polish) ---
+export function initScrollspy(): void {
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.site-nav__list a'));
+  const sections = links
+    .map((link) => {
+      const id = link.getAttribute('href')?.slice(1);
+      return id ? document.getElementById(id) : null;
+    })
+    .filter((el): el is HTMLElement => el !== null);
+
+  if (links.length === 0 || sections.length === 0) return;
+
+  const setActive = (id: string | null) => {
+    for (const link of links) {
+      const match = id !== null && link.getAttribute('href') === `#${id}`;
+      if (match) link.setAttribute('aria-current', 'true');
+      else link.removeAttribute('aria-current');
+    }
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      }
+    },
+    { rootMargin: '-35% 0px -55% 0px', threshold: 0 },
+  );
+  for (const section of sections) observer.observe(section);
+}
+
 export function initSmoothScroll(): Lenis | null {
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) return null;

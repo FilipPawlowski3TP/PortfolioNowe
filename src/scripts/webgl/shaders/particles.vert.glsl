@@ -15,7 +15,7 @@ void main() {
 
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
-  gl_PointSize = clamp((120.0 * uPixelRatio) / -mv.z, 1.0, 5.0 * uPixelRatio);
+  gl_PointSize = clamp((200.0 * uPixelRatio) / -mv.z, 2.0, 7.0 * uPixelRatio);
 
   vFade = 0.35 + 0.4 * smoothstep(-4.0, 3.0, p.y);
 }

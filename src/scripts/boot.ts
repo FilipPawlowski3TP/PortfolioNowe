@@ -2,7 +2,7 @@
 // html.js class enables initial hidden states; a 3 s watchdog (Base.astro)
 // reveals everything if this module never runs or throws.
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { initSmoothScroll, initAnchors } from './motion/smooth-scroll';
+import { initSmoothScroll, initAnchors, initScrollspy } from './motion/smooth-scroll';
 import { initReveals } from './motion/reveals';
 import { initMenu } from './motion/menu';
 declare global {
@@ -16,6 +16,9 @@ function revealAll(): void {
 }
 
 function boot(): void {
+  // Wayfinding is not motion — works in every mode
+  initScrollspy();
+
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) {
     revealAll();

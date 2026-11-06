@@ -5,8 +5,10 @@
 import * as THREE from 'three';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import gridVert from './shaders/grid.vert.glsl?raw';
-import gridFrag from './shaders/grid.frag.glsl?raw';
+import atmosphereVert from './shaders/atmosphere.vert.glsl?raw';
+import atmosphereFrag from './shaders/atmosphere.frag.glsl?raw';
+import layersVert from './shaders/layers.vert.glsl?raw';
+import layersFrag from './shaders/layers.frag.glsl?raw';
 import { createParticles, MAX_PARTICLES, type ParticlesHandle } from './particles';
 import { createDevices, type DevicesHandle } from './devices';
 import { AdaptiveController } from './adaptive';
@@ -50,20 +52,43 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
     uPixelRatio: { value: 1 },
   };
 
-  // --- Blueprint grid (Act scaffolding for every act) ---
-  const gridGeometry = new THREE.PlaneGeometry(160, 160);
-  const gridMaterial = new THREE.ShaderMaterial({
+  // --- Atmosphere (cinematic night -> dawn glow; G2 decision: option A) ---
+  const skyGeometry = new THREE.PlaneGeometry(2, 2);
+  const skyMaterial = new THREE.ShaderMaterial({
     glslVersion: THREE.GLSL3,
-    vertexShader: gridVert,
-    fragmentShader: gridFrag,
+    vertexShader: atmosphereVert,
+    fragmentShader: atmosphereFrag,
     uniforms,
-    transparent: true,
+    depthTest: false,
     depthWrite: false,
   });
-  const grid = new THREE.Mesh(gridGeometry, gridMaterial);
-  grid.rotation.x = -Math.PI / 2;
-  grid.position.y = -1.6;
-  scene.add(grid);
+  const sky = new THREE.Mesh(skyGeometry, skyMaterial);
+  sky.frustumCulled = false;
+  sky.renderOrder = -1;
+  scene.add(sky);
+
+  // --- Soft depth layers (parallax planes) ---
+  const layerGeometry = new THREE.PlaneGeometry(34, 18);
+  const layerMaterials: THREE.ShaderMaterial[] = [];
+  const layerConfigs = [
+    { z: -6, y: 0.4, x: -1.5 },
+    { z: -12, y: 1.4, x: 1.5 },
+    { z: -20, y: 2.6, x: -0.5 },
+  ];
+  layerConfigs.forEach((cfg, i) => {
+    const material = new THREE.ShaderMaterial({
+      glslVersion: THREE.GLSL3,
+      vertexShader: layersVert,
+      fragmentShader: layersFrag,
+      uniforms: { ...uniforms, uLayer: { value: i / Math.max(1, layerConfigs.length - 1) } },
+      transparent: true,
+      depthWrite: false,
+    });
+    layerMaterials.push(material);
+    const mesh = new THREE.Mesh(layerGeometry, material);
+    mesh.position.set(cfg.x, cfg.y, cfg.z);
+    scene.add(mesh);
+  });
 
   // --- Dust particles ---
   const particles: ParticlesHandle = createParticles(uniforms);
@@ -232,8 +257,10 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
       canvas.removeEventListener('webglcontextrestored', onContextRestored);
       particles.dispose();
       devices?.dispose();
-      gridGeometry.dispose();
-      gridMaterial.dispose();
+      skyGeometry.dispose();
+      skyMaterial.dispose();
+      layerGeometry.dispose();
+      for (const m of layerMaterials) m.dispose();
       renderer.dispose();
       renderer.forceContextLoss();
       canvas.remove();
