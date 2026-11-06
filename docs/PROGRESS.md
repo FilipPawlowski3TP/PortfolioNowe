@@ -56,3 +56,10 @@
 **Poprawka jakościowa:** LCP element (tekst hero) czekał na JS (3,18 s) — wejście hero przeniesione na czysty CSS transform-only („LCP nie czeka na JS”), LCP 1,24 s.
 **Uwaga:** FPS/frame-times w headless Edge = SwiftShader (brak GPU) — pomiary klatek wymagają testu na realnych urządzeniach (właściciel).
 **Dalej:** [BRAMKA G2] — zrzuty kluczowych momentów do akceptacji; po niej Faza 6 (formularz + nagłówki + deploy).
+
+## Rewizja G2 (2026-11-06) — „Światło i głębia" wg feedbacku właściciela
+
+Feedback: siatka blueprint zbyt „geekowa" dla Kowalskiego; podobają się mockupy Koparek i pin Procesu; cała strona ma tak płynnie działać. Decyzje właściciela: **A — Światło i głębia**, więcej pinów + scrub wszędzie.
+**Zmiany:** siatka usunięta → shader atmosferyczny (noc→świt, ciepła poświata rosnąca ze scrollem, dither anty-banding) + 3 miękkie warstwy głębi (paralaks) + bokeh zamiast technicznego pyłu; choreografia scrub na całej stronie (wyjście hero z paralaksą, fala kart oferty, standard/FAQ/kontakt); **pin Realizacji** (1 ekran, etykiety Problem→Efekt rozgrzewają się do akcentu, mockupy dryfują); scrollspy w nawigacji (aktywna sekcja na dawn-400); fallback CSS = ten sam klimat.
+**Dowody:** phase5 ALL PASS (tiery, budżety: 5–7 draw calls, 2,9k trójkątów), axe 0 przy 5 pozycjach, mobile perf **98** (LCP 1,24 s, TBT 142 ms), desktop **100** (LCP 0,20 s), phase4 regresja ALL PASS.
+**Dalej:** [BRAMKA G2 — ponowna akceptacja] po pokazaniu nowych zrzutów.
