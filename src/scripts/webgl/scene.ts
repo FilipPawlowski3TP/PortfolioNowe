@@ -10,6 +10,7 @@ import atmosphereFrag from './shaders/atmosphere.frag.glsl?raw';
 import layersVert from './shaders/layers.vert.glsl?raw';
 import layersFrag from './shaders/layers.frag.glsl?raw';
 import { createDevices, type DevicesHandle } from './devices';
+import { createSculpture, type SculptureHandle } from './sculpture';
 import { AdaptiveController } from './adaptive';
 import { updateAct, type SceneState } from './acts';
 import type { Tier } from './tier';
@@ -90,6 +91,10 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
   });
 
   // --- Dust particles removed per owner feedback (dots in the background) ---
+
+  // --- Light sculpture: hero 3D subject (concept B) ---
+  const sculpture: SculptureHandle = createSculpture(uniforms);
+  scene.add(sculpture.group);
 
   // --- Device mockups with case-study textures (Tier 2 only) ---
   let devices: DevicesHandle | null = null;
@@ -211,6 +216,11 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
       devices.group.visible = window01 > 0.004;
     }
 
+    // Sculpture window: hero act, hands the stage over before section edges
+    const sculptWin = 1 - smoothstep(0.09, 0.16, smooth.progress);
+    sculpture.setOpacity(sculptWin);
+    sculpture.update(time, smooth.progress, smooth.pointer);
+
     renderer.render(scene, camera);
 
     if (firstFrame) {
@@ -250,6 +260,7 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
       canvas.removeEventListener('webglcontextlost', onContextLost);
       canvas.removeEventListener('webglcontextrestored', onContextRestored);
       devices?.dispose();
+      sculpture.dispose();
       skyGeometry.dispose();
       skyMaterial.dispose();
       layerGeometry.dispose();

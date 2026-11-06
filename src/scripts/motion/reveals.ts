@@ -1,10 +1,12 @@
 // Reveals + act choreography (MASTERPROMPT sekcja 10).
-// Hero entrance is pure CSS (motion.css). Here: scroll-driven "hooked" acts —
-// pinned sequences like the Proces one the owner liked (GTA VI / motionsites
-// style): each key section locks and its beats play through the scroll.
+// Hero entrance is pure CSS (motion.css). Here: the scroll RIDE — pinned acts
+// with beats (Proces-style, owner's favourite) AND full-travel transitions so
+// every pixel of scroll animates something (owner feedback: "przerwy między
+// pinami niszczą efekt"). Incoming stages rise over outgoing ones (z-stacked
+// in layout.css) — fluid hand-offs, no dead gaps.
 //
-// CRITICAL (bug fix): every trigger is created in DOM order and carries a
-// refreshPriority — out-of-order pins overlap their pin-spacers on refresh.
+// CRITICAL: triggers created in DOM order with refreshPriority — out-of-order
+// pins overlap their pin-spacers on refresh (bug fixed here).
 // Accessibility: transforms/colors only — text contrast never breaks mid-scroll.
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -19,9 +21,6 @@ export function initReveals(): void {
   // Reveals that never pin (safe at any width / any order)
   // ---------------------------------------------------------------
   mm.add('(prefers-reduced-motion: no-preference)', () => {
-    // Hero entrance is pure CSS (motion.css) so the LCP element paints at
-    // first render — JS never gates hero visibility (masterprompt sekcja 9).
-
     gsap.utils.toArray<HTMLElement>('.section__heading').forEach((el) => {
       SplitText.create(el, {
         type: 'lines',
@@ -40,6 +39,8 @@ export function initReveals(): void {
     });
 
     gsap.utils.toArray<HTMLElement>('.section__label, .section__intro').forEach((el) => {
+      // Lighter on mobile: labels/intros appear without JS work (TBT budget)
+      if (matchMedia('(max-width: 59.99rem)').matches) return;
       gsap.from(el, {
         autoAlpha: 0,
         y: 16,
@@ -51,11 +52,10 @@ export function initReveals(): void {
   });
 
   // ---------------------------------------------------------------
-  // Desktop ride: pinned acts in DOM order (I hero, II oferta,
-  // III proces, IV realizacje; V-VI scrubbed; VII kontakt scrubbed)
+  // Desktop ride — DOM order, one continuous chain of motion
   // ---------------------------------------------------------------
   mm.add('(prefers-reduced-motion: no-preference) and (min-width: 60rem)', () => {
-    // ACT I — Hero: pinned exit sequence (the first "hook")
+    // ACT I — Hero pin: drift beats, then a full exit so the hand-off is clean
     const heroTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.hero',
@@ -69,19 +69,34 @@ export function initReveals(): void {
       },
     });
     heroTl
-      .to('[data-hero="meta"]', { y: -70, ease: 'none' }, 0)
-      .to('[data-hero="dimension"]', { scaleX: 0, transformOrigin: 'right center', ease: 'none' }, 0)
-      .to('[data-hero="title"]', { yPercent: -16, ease: 'none' }, 0)
-      .to('[data-hero="lead"]', { yPercent: -10, ease: 'none' }, 0)
-      .to('[data-hero="ctas"]', { yPercent: -4, ease: 'none' }, 0);
+      .to('[data-hero="meta"]', { y: -70, duration: 0.55, ease: 'none' }, 0)
+      .to('[data-hero="dimension"]', { scaleX: 0, transformOrigin: 'right center', duration: 0.55, ease: 'none' }, 0)
+      .to('[data-hero="title"]', { yPercent: -16, duration: 0.55, ease: 'none' }, 0)
+      .to('[data-hero="lead"]', { yPercent: -10, duration: 0.55, ease: 'none' }, 0)
+      .to('[data-hero="ctas"]', { yPercent: -4, duration: 0.55, ease: 'none' }, 0)
+      // exit beats: the content leaves the frame as Oferta rises over it
+      .to('.hero__content', { y: '-85vh', duration: 0.45, ease: 'none' }, 0.55)
+      .to('[data-hero="meta"]', { y: -220, duration: 0.45, ease: 'none' }, 0.55);
 
-    // ACT II — Oferta: pinned card-by-card reveal (like Proces steps)
+    // ACT II — Oferta: rises over the hero across the full travel, settles
+    // after the section locks, then card-by-card beats (Proces-style)
+    gsap.from('.offer > .container', {
+      y: 170,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.offer',
+        start: 'top bottom',
+        end: 'top 15%',
+        scrub: 0.5,
+        refreshPriority: 9,
+      },
+    });
     const cards = gsap.utils.toArray<HTMLElement>('.offer-card');
     const offerTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.offer',
         start: 'top top+=72',
-        end: '+=130%',
+        end: '+=110%',
         pin: true,
         scrub: 0.4,
         anticipatePin: 1,
@@ -99,13 +114,24 @@ export function initReveals(): void {
       );
     });
 
-    // ACT III — Proces: pinned step sequence (owner's favourite)
+    // ACT III — Proces: same ride pattern (owner's favourite)
+    gsap.from('.process > .container', {
+      y: 170,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.process',
+        start: 'top bottom',
+        end: 'top 15%',
+        scrub: 0.5,
+        refreshPriority: 7,
+      },
+    });
     const steps = gsap.utils.toArray<HTMLElement>('.process-step');
     const processTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.process',
         start: 'top top+=72',
-        end: '+=130%',
+        end: '+=110%',
         pin: true,
         scrub: 0.4,
         anticipatePin: 1,
@@ -126,13 +152,24 @@ export function initReveals(): void {
       }
     });
 
-    // ACT IV — Realizacje: pinned case-study sequence
+    // ACT IV — Realizacje: same ride pattern
+    gsap.from('.case-study > .container', {
+      y: 170,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.case-study',
+        start: 'top bottom',
+        end: 'top 15%',
+        scrub: 0.5,
+        refreshPriority: 5,
+      },
+    });
     const caseSteps = gsap.utils.toArray<HTMLElement>('.case-study__step');
     const caseTl = gsap.timeline({
       scrollTrigger: {
         trigger: '.case-study',
         start: 'top top+=72',
-        end: '+=100%',
+        end: '+=110%',
         pin: true,
         scrub: 0.4,
         anticipatePin: 1,
@@ -152,49 +189,45 @@ export function initReveals(): void {
       if (body) caseTl.fromTo(body, { y: 24 }, { y: 0, duration: 1, ease: 'none' }, i);
     });
 
-    // ACT V-VI — Standard + FAQ: staggered rises tied to scroll
-    gsap.from('.standard-item', {
-      y: 50,
-      stagger: 0.1,
+    // ACT V-VII — Standard, FAQ, Kontakt: full-travel rises (never dead pixels)
+    gsap.from('.standard > .container', {
+      y: 150,
       ease: 'none',
       scrollTrigger: {
-        trigger: '.standard__grid',
-        start: 'top 88%',
-        end: 'top 40%',
-        scrub: 0.6,
+        trigger: '.standard',
+        start: 'top bottom',
+        end: 'top 25%',
+        scrub: 0.5,
         refreshPriority: 3,
       },
     });
-    gsap.from('.faq-item', {
-      y: 30,
-      stagger: 0.08,
+    gsap.from('.faq > .container', {
+      y: 150,
       ease: 'none',
       scrollTrigger: {
-        trigger: '.faq__list',
-        start: 'top 88%',
-        end: 'top 45%',
-        scrub: 0.6,
+        trigger: '.faq',
+        start: 'top bottom',
+        end: 'top 25%',
+        scrub: 0.5,
         refreshPriority: 2,
       },
     });
-
-    // ACT VII — Kontakt: the dawn finale (scrubbed, no pin — the form is the
-    // conversion moment and must never be locked away)
-    gsap.from('.contact__grid', {
-      y: 60,
+    gsap.from('.contact > .container', {
+      y: 150,
       ease: 'none',
       scrollTrigger: {
         trigger: '.contact',
-        start: 'top 88%',
-        end: 'top 45%',
-        scrub: 0.6,
+        start: 'top bottom',
+        end: 'top 25%',
+        scrub: 0.5,
         refreshPriority: 1,
       },
     });
   });
 
   // ---------------------------------------------------------------
-  // Mobile/tablet: lighter scrub choreography, zero pins
+  // Mobile/tablet: same continuous motion, zero pins, minimal triggers
+  // (main-thread budget: TBT <= 200 ms lab, masterprompt sekcja 15)
   // ---------------------------------------------------------------
   mm.add('(prefers-reduced-motion: no-preference) and (max-width: 59.99rem)', () => {
     gsap.to('.hero__content', {
@@ -202,22 +235,12 @@ export function initReveals(): void {
       ease: 'none',
       scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.5 },
     });
-    gsap.from('.offer-card', {
-      y: 40,
-      stagger: 0.1,
-      ease: 'none',
-      scrollTrigger: { trigger: '.offer__grid', start: 'top 92%', end: 'top 45%', scrub: 0.6 },
-    });
-    gsap.from('.standard-item', {
-      y: 36,
-      stagger: 0.08,
-      ease: 'none',
-      scrollTrigger: { trigger: '.standard__grid', start: 'top 92%', end: 'top 50%', scrub: 0.6 },
-    });
-    gsap.from('.contact__grid', {
-      y: 36,
-      ease: 'none',
-      scrollTrigger: { trigger: '.contact', start: 'top 92%', end: 'top 50%', scrub: 0.6 },
-    });
+    for (const sel of ['.offer', '.process', '.contact']) {
+      gsap.from(`${sel} > .container`, {
+        y: 90,
+        ease: 'none',
+        scrollTrigger: { trigger: sel, start: 'top bottom', end: 'top 35%', scrub: 0.5 },
+      });
+    }
   });
 }

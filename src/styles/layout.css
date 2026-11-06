@@ -53,6 +53,51 @@ main,
   z-index: 1;
 }
 
+/* Stacked act layers: later sections paint ABOVE pinned ones, so every
+   hand-off is a fluid slide-over (owner feedback: no dead gaps between pins) */
+main > .hero {
+  z-index: 1;
+}
+main > .offer {
+  z-index: 2;
+}
+main > .process {
+  z-index: 3;
+}
+main > .case-study {
+  z-index: 4;
+}
+main > .standard,
+main > .faq {
+  z-index: 5;
+}
+main > .contact {
+  z-index: 6;
+}
+.site-footer {
+  z-index: 7;
+}
+
+/* Full-viewport act stages: content optically centered so a pinned act never
+   hangs "too high" (owner feedback) */
+@media (min-width: 60rem) {
+  .hero,
+  .offer,
+  .process,
+  .case-study {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero > *,
+  .offer > *,
+  .process > *,
+  .case-study > * {
+    width: 100%;
+  }
+}
+
 .offer,
 .standard {
   background: color-mix(in oklab, var(--c-surface) 88%, transparent);
@@ -73,6 +118,19 @@ main,
     color-mix(in oklab, var(--c-surface) 88%, transparent) 0%,
     color-mix(in oklab, var(--c-bg) 85%, transparent) 100%
   );
+}
+
+/* Feathered top edges: section backgrounds fade into each other instead of a
+   hard cut (owner feedback on hand-offs). A mask (not an overlay) — it fades
+   the section's own veil; content sits below the 6rem feather (sp-section). */
+.offer,
+.process,
+.case-study,
+.standard,
+.faq,
+.contact {
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 6rem);
+  mask-image: linear-gradient(180deg, transparent 0, #000 6rem);
 }
 
 @media (max-width: 48rem) {

@@ -5,8 +5,10 @@
    Scroll-driven reveals live in src/scripts/motion/reveals.ts. */
 
 @media (prefers-reduced-motion: no-preference) {
+  /* fill 'backwards' (NOT 'both'): once the CSS entrance ends, inline GSAP
+     transforms must win — 'both' would keep overriding them forever */
   .hero__meta {
-    animation: hero-rise 0.7s var(--e-out) both;
+    animation: hero-rise 0.7s var(--e-out) backwards;
   }
 
   .hero__meta--tr {
@@ -18,20 +20,20 @@
   }
 
   .hero__h1 {
-    animation: hero-rise 0.8s var(--e-out) 0.1s both;
+    animation: hero-rise 0.8s var(--e-out) 0.1s backwards;
   }
 
   .hero__dimension {
-    animation: hero-draw 0.9s var(--e-out) 0.2s both;
+    animation: hero-draw 0.9s var(--e-out) 0.2s backwards;
     transform-origin: left center;
   }
 
   .hero__lead {
-    animation: hero-rise 0.7s var(--e-out) 0.35s both;
+    animation: hero-rise 0.7s var(--e-out) 0.35s backwards;
   }
 
   .hero__ctas {
-    animation: hero-rise 0.7s var(--e-out) 0.5s both;
+    animation: hero-rise 0.7s var(--e-out) 0.5s backwards;
   }
 }
 

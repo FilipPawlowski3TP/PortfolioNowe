@@ -201,7 +201,7 @@
   }
 }
 
-/* ---------- Hero (Act I, variant C) ---------- */
+/* ---------- Hero (Act I: cinematic title + light sculpture) ---------- */
 .hero {
   position: relative;
   overflow: hidden;
@@ -211,9 +211,8 @@
   position: relative;
   width: min(100% - 2 * var(--sp-6), var(--w-content));
   margin: var(--sp-8) auto var(--sp-12);
-  border: var(--line-strong);
-  padding: clamp(1.5rem, 5vw, 4.5rem);
-  min-height: min(78vh, 46rem);
+  padding: clamp(1.5rem, 4vw, 3.5rem) 0;
+  min-height: min(84svh, 46rem);
   display: flex;
   align-items: center;
 }
@@ -247,13 +246,19 @@
 .hero__content {
   position: relative;
   z-index: 2;
-  max-width: 46rem;
+  max-width: min(54rem, 58%);
+}
+
+@media (max-width: 60rem) {
+  .hero__content {
+    max-width: 100%;
+  }
 }
 
 .hero__h1 {
-  font-size: var(--fs-hero);
+  font-size: clamp(2.6rem, 6.4vw, 6.2rem);
   font-weight: 700;
-  margin-bottom: var(--sp-6);
+  margin-bottom: var(--sp-5);
 }
 
 .hero__dimension {
@@ -261,7 +266,7 @@
   flex-direction: column;
   gap: 0.35rem;
   color: var(--c-structure);
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-6);
   max-width: 32rem;
 }
 
@@ -281,7 +286,7 @@
 .hero__lead {
   max-width: 34rem;
   color: var(--c-text-muted);
-  margin: 0 0 var(--sp-8);
+  margin: 0 0 var(--sp-6);
 }
 
 .hero__ctas {
