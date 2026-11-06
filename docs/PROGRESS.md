@@ -63,3 +63,10 @@ Feedback: siatka blueprint zbyt „geekowa" dla Kowalskiego; podobają się mock
 **Zmiany:** siatka usunięta → shader atmosferyczny (noc→świt, ciepła poświata rosnąca ze scrollem, dither anty-banding) + 3 miękkie warstwy głębi (paralaks) + bokeh zamiast technicznego pyłu; choreografia scrub na całej stronie (wyjście hero z paralaksą, fala kart oferty, standard/FAQ/kontakt); **pin Realizacji** (1 ekran, etykiety Problem→Efekt rozgrzewają się do akcentu, mockupy dryfują); scrollspy w nawigacji (aktywna sekcja na dawn-400); fallback CSS = ten sam klimat.
 **Dowody:** phase5 ALL PASS (tiery, budżety: 5–7 draw calls, 2,9k trójkątów), axe 0 przy 5 pozycjach, mobile perf **98** (LCP 1,24 s, TBT 142 ms), desktop **100** (LCP 0,20 s), phase4 regresja ALL PASS.
 **Dalej:** [BRAMKA G2 — ponowna akceptacja] po pokazaniu nowych zrzutów.
+
+## Rewizja G2 v3 (2026-11-06) — „płynna jazda" + nowy hero (B: Rzeźba świetlna)
+
+Feedback: przerwy między pinami niszczą efekt (martwe odcinki scrolla), oferta wisi za wysoko, hero „źle zrobiony/środek ekranu", kropki out, 3D zostaje; hero B/C — agent wybrał B (z nutką C).
+**Zmiany:** (1) przejścia na pełnym dystansie — każda sekcja wjeżdża scrubem od `top bottom` do `top 15%`, sekcje warstwowo nakładane (z-index), piórkowane maski krawędzi (bez twardych linii); hero pin ma pełne wyjście treści (`-85vh`) — zero martwych pikseli scrolla; (2) akty wyśrodkowane w viewport (min-height 100svh, flex) — „za wysoko" naprawione; (3) hero: kompozycja asymetryczna, bez ramki, ciaśniejszy rytm (CTA nad zgięciem), rzeźba świetlna 3D (3 pierścienie + rdzeń, fresnel additive, noc→świt, okno 0,09–0,16); (4) kolizja pinów = trigger order + refreshPriority + anticipatePin (weryfikacja: 72 pozycje scrolla, 0 kolizji).
+**Dowody:** phase4/phase5 ALL PASS, axe 0 mid-pin, mobile **perf 97 / TBT 191 ms** (budżet ≤200), LCP 1,24 s, CLS 0,010; doc 12 ekranów desktop (dystans pinów = „jazda" wg życzenia właściciela).
+**Dalej:** akceptacja przejazdu → Faza 6 (formularz + bezpieczeństwo).
