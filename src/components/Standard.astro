@@ -1,0 +1,31 @@
+---
+// Act V — Standard ("Jakość"): what every project includes.
+import T from './T.astro';
+import { site } from '../data/site';
+---
+
+<section class="section standard" id={site.standard.id} aria-labelledby="standard-h2">
+  <div class="container">
+    <p class="section__label">
+      <T text={site.standard.label} />
+    </p>
+    <h2 id="standard-h2" class="section__heading">
+      <T text={site.standard.heading} />
+    </h2>
+
+    <ul class="standard__grid">
+      {
+        site.standard.items.map((item) => (
+          <li class="standard-item">
+            <h3 class="standard-item__name">
+              <T text={item.name} />
+            </h3>
+            <p class="standard-item__what">
+              <T text={item.what} />
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

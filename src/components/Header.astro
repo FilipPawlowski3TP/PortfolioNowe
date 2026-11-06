@@ -1,0 +1,55 @@
+---
+// Sticky header. No-JS friendly: mobile menu is a <details> disclosure;
+// enhanced in Phase 4 (inert, Lenis stop, Esc).
+import Wordmark from './Wordmark.astro';
+import T from './T.astro';
+import { site } from '../data/site';
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="site-header__logo" href="/">
+      <Wordmark />
+    </a>
+
+    <nav class="site-nav" aria-label="Główne">
+      <ul class="site-nav__list">
+        {
+          site.nav.links.map((link) => (
+            <li>
+              <a href={link.href}>
+                <T text={link.label} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <details class="nav-mobile">
+      <summary class="nav-mobile__summary">Menu</summary>
+      <nav class="nav-mobile__panel" aria-label="Mobilne">
+        <ul>
+          {
+            site.nav.links.map((link) => (
+              <li>
+                <a href={link.href}>
+                  <T text={link.label} />
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a class="btn btn--primary nav-mobile__cta" href={site.nav.cta.href}>
+              <T text={site.nav.cta.label} />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </details>
+
+    <a class="btn btn--primary site-header__cta" href={site.nav.cta.href}>
+      <T text={site.nav.cta.label} />
+    </a>
+  </div>
+</header>

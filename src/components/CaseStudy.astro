@@ -1,0 +1,72 @@
+---
+// Act IV — Realizacje ("Premiera"). Facts come only from the Phase 0 audit.
+import T from './T.astro';
+import { site } from '../data/site';
+---
+
+<section class="section case-study" id={site.caseStudy.id} aria-labelledby="case-h2">
+  <div class="container">
+    <p class="section__label">
+      <T text={site.caseStudy.label} />
+    </p>
+    <h2 id="case-h2" class="section__heading">
+      <T text={site.caseStudy.heading} />
+    </h2>
+
+    <div class="case-study__grid">
+      <div class="case-study__mockups">
+        <figure class="device-frame device-frame--laptop">
+          <img
+            src="/media/case-desktop-hero.png"
+            alt="Strona firmy Koparki Pawłowski na ekranie komputera — sekcja główna z nagłówkiem i przyciskami kontaktu."
+            width="1440"
+            height="900"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+        <figure class="device-frame device-frame--phone">
+          <img
+            src="/media/case-mobile-hero.png"
+            alt="Ta sama strona na ekranie telefonu — wersja mobilna sekcji głównej."
+            width="390"
+            height="844"
+            loading="lazy"
+            decoding="async"
+          />
+        </figure>
+      </div>
+
+      <div class="case-study__story">
+        <h3 class="case-study__step">Problem</h3>
+        <p>
+          <T text={site.caseStudy.problem} />
+        </p>
+
+        <h3 class="case-study__step">Co zrobiono</h3>
+        <p>
+          <T text={site.caseStudy.work} />
+        </p>
+
+        <h3 class="case-study__step">Efekt</h3>
+        <ul class="case-study__results">
+          {
+            site.caseStudy.results.map((result) => (
+              <li>
+                <T text={result} />
+              </li>
+            ))
+          }
+        </ul>
+
+        <a class="btn btn--primary" href={site.caseStudy.cta.href} target="_blank" rel="noopener">
+          <T text={site.caseStudy.cta.label} />
+        </a>
+
+        <p class="case-study__next">
+          <T text={site.caseStudy.nextSlot} />
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

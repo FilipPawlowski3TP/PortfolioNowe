@@ -1,0 +1,55 @@
+---
+// Act I — Hero ("Szkic"), layout variant C: drawing title card.
+import T from './T.astro';
+import { site } from '../data/site';
+---
+
+<section class="hero" aria-labelledby="hero-h1">
+  <div class="hero__frame">
+    <div class="hero__meta hero__meta--tl">
+      <T text={site.hero.drawingMeta.project} />
+    </div>
+    <div class="hero__meta hero__meta--tr">
+      <T text={site.hero.drawingMeta.scale} />
+    </div>
+    <div class="hero__meta hero__meta--br">
+      <T text={site.hero.drawingMeta.year} />
+    </div>
+
+    <div class="hero__content">
+      <h1 id="hero-h1" class="hero__h1">
+        <T text={site.hero.h1} />
+      </h1>
+
+      <div class="hero__dimension" aria-hidden="true">
+        <span class="hero__dimension-label">
+          <T text={site.hero.dimensionLabel} />
+        </span>
+        <svg class="hero__dimension-line" viewBox="0 0 600 12" preserveAspectRatio="none">
+          <line x1="2" y1="6" x2="598" y2="6" stroke="currentColor" stroke-width="1"></line>
+          <line x1="2" y1="1" x2="2" y2="11" stroke="currentColor" stroke-width="1"></line>
+          <line x1="598" y1="1" x2="598" y2="11" stroke="currentColor" stroke-width="1"></line>
+        </svg>
+      </div>
+
+      <p class="hero__lead">
+        <T text={site.hero.lead} />
+      </p>
+
+      <div class="hero__ctas">
+        {
+          site.hero.ctas.map((cta) => (
+            <a class:list={['btn', cta.variant === 'primary' ? 'btn--primary' : 'btn--secondary']} href={cta.href}>
+              <T text={cta.label} />
+            </a>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- WebGL scene mounts here in Phase 5; CSS fallback layer below -->
+    <div class="hero__scene" id="scene-root" aria-hidden="true">
+      <div class="scene-fallback"></div>
+    </div>
+  </div>
+</section>

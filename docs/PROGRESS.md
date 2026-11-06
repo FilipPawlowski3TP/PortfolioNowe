@@ -26,7 +26,14 @@
 - Faza 1 w toku: `docs/DESIGN_PLAN.md` (tokeny + kontrasty WCAG policzone, typografia Bricolage Grotesque + Instrument Sans, 3 warianty hero → rekomendacja C „tytułówka rysunku”, wireframe'y desktop/mobile, storyboard sceny, motion spec, autokrytyka 8.5), copy deck w `src/data/site.ts` (title 43/60, desc 146/155, H1 8 słów — policzone).
 - Test renderu polskich znaków: ZALICZONY (2026-11-06, weryfikacja wizualna zrzutu `docs/audit/font-test.png` — brak tofu/podmian glifów w Bricolage i Instrument Sans).
 - [BRAMKA G1] — ZAMKNIĘTA 2026-11-06: marka = **Pawłowski Studio**, hero wariant C, 4 przewagi potwierdzone, 4. usługa „Opieka po wdrożeniu” dodana, treści zaakceptowane.
-- Faza 2 (szkielet projektu) — W TOKU.
+
+## Faza 2 — Szkielet projektu — GOTOWE (2026-11-06)
+
+**Zrobione:** skafold Astro 7.4.7 (minimal, TS strict), `astro.config.mjs` (static, `trailingSlash: always`, `compressHTML`, sitemap z `filter`), tokeny CSS (`src/styles/tokens.css`) + `base.css`, `Base.astro` + `SeoHead.astro` (title/desc/canonical/OG/lang=pl), fonty self-hosted przez **wbudowaną obsługę fontów Astro 7** (`fontProviders.local()` + `<Font />`), subsety `src/assets/fonts/*.woff2` (39+30,7 KB), `scripts/check-placeholders.mjs`, `.prettierrc`, `docs/DEPENDENCIES.md`, `git init` + 2 commity.
+**Dowody:** `astro build` → 1 strona + sitemap + kopiowanie 2 fontów, OK; `astro check` → 0 błędów, 0 ostrzeżeń (1 hint); `node scripts/check-placeholders.mjs` → FAILED na `todo_domena` (negatywny test bramy — działa zgodnie z MASTERPROMPT sekcja 3).
+**Decyzje:** fonty subsetowane lokalnie (fonttools: instancer pin osi + subset latin+latin-ext) zamiast fontsource w buildzie — pełna kontrola budżetu; TS celowo 5.x (7.x niepewny z @astrojs/check).
+**Blokada:** `npm run build` zatrzymuje się na check-placeholders do czasu podania `{{DOMENA}}` (pytanie do właściciela). `astro build` działa.
+**Dalej:** Faza 3 — warstwa statyczna (wszystkie sekcje HTML/CSS, bez ruchu).
 
 ## Faza 1–9 — nie rozpoczęte
 

@@ -1,0 +1,91 @@
+---
+// Act VII — Kontakt ("Start"). Form posts to /api/contact (Cloudflare Pages Function, Phase 6).
+// Without JS: form still submits natively; direct e-mail link is always available.
+import T from './T.astro';
+import { site } from '../data/site';
+
+const f = site.contactSection.form;
+---
+
+<section class="section contact" id={site.contactSection.id} aria-labelledby="contact-h2">
+  <div class="container">
+    <p class="section__label">
+      <T text={site.contactSection.label} />
+    </p>
+    <h2 id="contact-h2" class="section__heading">
+      <T text={site.contactSection.heading} />
+    </h2>
+    <p class="section__intro">
+      <T text={site.contactSection.lead} />
+    </p>
+
+    <div class="contact__grid">
+      <form class="contact-form" action="/api/contact/" method="post" novalidate>
+        <div class="form-field">
+          <label for="cf-name">
+            <T text={f.name.label} />
+          </label>
+          <input id="cf-name" name="name" type="text" autocomplete={f.name.autocomplete} required />
+        </div>
+
+        <div class="form-field">
+          <label for="cf-email">
+            <T text={f.email.label} />
+          </label>
+          <input id="cf-email" name="email" type="email" autocomplete={f.email.autocomplete} required />
+        </div>
+
+        <div class="form-field">
+          <label for="cf-kind">
+            <T text={f.kind.label} />
+          </label>
+          <select id="cf-kind" name="kind">
+            <option value="">Wybierz…</option>
+            {
+              f.kind.options.map((option) => (
+                <option value={option}>
+                  <T text={option} />
+                </option>
+              ))
+            }
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="cf-message">
+            <T text={f.message.label} />
+          </label>
+          <textarea id="cf-message" name="message" rows="5" required></textarea>
+        </div>
+
+        <!-- honeypot: hidden from humans, bots fill it -->
+        <div class="form-honeypot" aria-hidden="true">
+          <label for="cf-website">Website</label>
+          <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <button class="btn btn--primary" type="submit">
+          <T text={f.submit} />
+        </button>
+
+        <p class="contact-form__clause">
+          <T text={site.contactSection.clause} />
+        </p>
+
+        <p class="contact-form__status" role="status" aria-live="polite"></p>
+      </form>
+
+      <div class="contact__aside">
+        <p class="contact__aside-label">
+          <T text={site.contactSection.emailLabel} />
+        </p>
+        <a class="contact__email" href={`mailto:${site.contact.email}`}>
+          {site.contact.email}
+        </a>
+        <p class="contact__note">
+          <T text={site.contact.responseNote} />
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

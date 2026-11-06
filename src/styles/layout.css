@@ -1,0 +1,71 @@
+/* Layout: containers, sections, shared section furniture */
+.container {
+  width: min(100% - 2 * var(--sp-6), var(--w-content));
+  margin-inline: auto;
+}
+
+.container--narrow {
+  width: min(100% - 2 * var(--sp-6), 52rem);
+}
+
+.section {
+  padding-block: var(--sp-section);
+  position: relative;
+}
+
+.section__label {
+  font-family: var(--font-text, var(--font-fallback));
+  font-size: var(--fs-small);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-structure);
+  margin: 0 0 var(--sp-4);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+
+.section__label::before {
+  content: '';
+  width: 2.5rem;
+  height: 1px;
+  background: color-mix(in oklab, var(--c-structure) 55%, transparent);
+}
+
+.section__heading {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  max-width: 22ch;
+  margin-bottom: var(--sp-8);
+}
+
+.section__intro {
+  max-width: var(--w-text);
+  color: var(--c-text-muted);
+  margin: 0 0 var(--sp-12);
+}
+
+/* Alternating surfaces keep the scroll rhythm without decorations */
+.offer,
+.standard {
+  background: var(--c-surface);
+}
+
+.process,
+.faq {
+  background: var(--c-bg);
+}
+
+.case-study {
+  background: var(--c-surface);
+}
+
+.contact {
+  background: linear-gradient(180deg, var(--c-surface) 0%, var(--c-bg) 100%);
+}
+
+@media (max-width: 48rem) {
+  .container {
+    width: min(100% - 2 * var(--sp-4), var(--w-content));
+  }
+}

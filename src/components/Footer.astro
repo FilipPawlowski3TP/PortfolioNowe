@@ -1,0 +1,39 @@
+---
+// Footer: service provider info (name + e-mail only — owner decision G0: no company data).
+import Wordmark from './Wordmark.astro';
+import T from './T.astro';
+import { site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <div class="site-footer__brand">
+      <Wordmark />
+      <p class="site-footer__line">
+        <T text={site.footer.line} />
+      </p>
+    </div>
+
+    <div class="site-footer__contact">
+      <p>{site.brand.person}</p>
+      <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
+    </div>
+
+    <nav class="site-footer__links" aria-label="Stopka">
+      <ul>
+        {
+          site.footer.links.map((link) => (
+            <li>
+              <a href={link.href}>
+                <T text={link.label} />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+  <div class="container">
+    <p class="site-footer__copyright">{site.footer.copyright(new Date().getFullYear())}</p>
+  </div>
+</footer>

@@ -1,0 +1,58 @@
+---
+// Act II — Oferta ("Konstrukcja"). Hierarchy: one featured service + smaller cards.
+import T from './T.astro';
+import { site } from '../data/site';
+
+const [featured, ...rest] = site.offer.services;
+---
+
+<section class="section offer" id={site.offer.id} aria-labelledby="offer-h2">
+  <div class="container">
+    <p class="section__label">
+      <T text={site.offer.label} />
+    </p>
+    <h2 id="offer-h2" class="section__heading">
+      <T text={site.offer.heading} />
+    </h2>
+    <p class="section__intro">
+      <T text={site.offer.intro} />
+    </p>
+
+    <div class="offer__grid">
+      <article class="offer-card offer-card--featured">
+        <h3 class="offer-card__name">
+          <T text={featured.name} />
+        </h3>
+        <p class="offer-card__what">
+          <T text={featured.what} />
+        </p>
+        <p class="offer-card__for">
+          <T text={featured.forWho} />
+        </p>
+        <a class="btn btn--secondary" href="#kontakt">
+          <T text={featured.cta ?? 'Napisz do mnie'} />
+        </a>
+      </article>
+
+      {
+        rest.map((service) => (
+          <article class="offer-card">
+            <h3 class="offer-card__name">
+              <T text={service.name} />
+            </h3>
+            <p class="offer-card__what">
+              <T text={service.what} />
+            </p>
+            <p class="offer-card__for">
+              <T text={service.forWho} />
+            </p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="offer__pricing">
+      <T text={site.offer.pricing} />
+    </p>
+  </div>
+</section>

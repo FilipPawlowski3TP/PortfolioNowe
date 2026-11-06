@@ -1,0 +1,31 @@
+---
+// Act VI — FAQ. Native <details>/<summary>: keyboard-accessible without JS.
+import T from './T.astro';
+import { site } from '../data/site';
+---
+
+<section class="section faq" id={site.faq.id} aria-labelledby="faq-h2">
+  <div class="container container--narrow">
+    <p class="section__label">
+      <T text={site.faq.label} />
+    </p>
+    <h2 id="faq-h2" class="section__heading">
+      <T text={site.faq.heading} />
+    </h2>
+
+    <div class="faq__list">
+      {
+        site.faq.items.map((item) => (
+          <details class="faq-item">
+            <summary class="faq-item__q">
+              <T text={item.q} />
+            </summary>
+            <p class="faq-item__a">
+              <T text={item.a} />
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,38 @@
+---
+// Act III — Proces ("Droga"). Real sequence, so numbering is meaningful.
+import T from './T.astro';
+import { site } from '../data/site';
+---
+
+<section class="section process" id={site.process.id} aria-labelledby="process-h2">
+  <div class="container">
+    <p class="section__label">
+      <T text={site.process.label} />
+    </p>
+    <h2 id="process-h2" class="section__heading">
+      <T text={site.process.heading} />
+    </h2>
+
+    <ol class="process__steps">
+      {
+        site.process.steps.map((step, i) => (
+          <li class="process-step">
+            <span class="process-step__number" aria-hidden="true">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="process-step__name">
+              <T text={step.name} />
+            </h3>
+            <p class="process-step__what">
+              <T text={step.what} />
+            </p>
+            <p class="process-step__from-you">
+              <span class="process-step__from-you-label">Od Ciebie: </span>
+              <T text={step.fromYou} />
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
