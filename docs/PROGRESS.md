@@ -35,6 +35,9 @@
 **Blokada:** `npm run build` zatrzymuje się na check-placeholders do czasu podania `{{DOMENA}}` (pytanie do właściciela). `astro build` działa.
 **Dalej:** Faza 3 — warstwa statyczna (wszystkie sekcje HTML/CSS, bez ruchu).
 
-## Faza 1–9 — nie rozpoczęte
+## Faza 3 — Warstwa statyczna — GOTOWE (2026-11-06)
 
-Wymagania i kryteria: MASTERPROMPT sekcja 18.
+**Zrobione:** wszystkie sekcje (Header/Hero/Oferta/Proces/CaseStudy/Standard/FAQ/Kontakt/Footer), strony prawne (projekty do weryfikacji prawnika) + 404, `T.astro` + `typo()`, wordmark, hero wariant C, CSS wg tokenów (`layout.css`, `components.css`, `legal.css`), responsywność mobile-first.
+**Dowody (`docs/qa/phase3/`):** 7 viewportów (360–1920): brak poziomego scrolla, 1×h1, 0 błędów konsoli, 0 uszkodzonych obrazów; axe (WCAG 2.x AA): **0 naruszeń serious/critical**; Lighthouse (localhost): **SEO 100, dostępność 100, best-practices 100**; przegląd wizualny zrzutów: układ hierarchiczny, case study kompletny (zrzuty klienta w ramkach), stopka OK, mobile OK.
+**Poprawki po przeglądzie:** rozmiar/waga drobnych etykiet (0,72→0,8 rem, 500), placeholder selecta, margines nagłówków sekcji, skrypt QA wymusza leniwe obrazy przed zrzutem.
+**Dalej:** Faza 4 — ruch (Lenis + GSAP: wejście hero, reveals, menu mobilne, reduced-motion).

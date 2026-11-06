@@ -6,22 +6,22 @@ import { site } from '../data/site';
 
 <section class="hero" aria-labelledby="hero-h1">
   <div class="hero__frame">
-    <div class="hero__meta hero__meta--tl">
+    <div class="hero__meta hero__meta--tl" data-hero="meta">
       <T text={site.hero.drawingMeta.project} />
     </div>
-    <div class="hero__meta hero__meta--tr">
+    <div class="hero__meta hero__meta--tr" data-hero="meta">
       <T text={site.hero.drawingMeta.scale} />
     </div>
-    <div class="hero__meta hero__meta--br">
+    <div class="hero__meta hero__meta--br" data-hero="meta">
       <T text={site.hero.drawingMeta.year} />
     </div>
 
     <div class="hero__content">
-      <h1 id="hero-h1" class="hero__h1">
+      <h1 id="hero-h1" class="hero__h1" data-hero="title">
         <T text={site.hero.h1} />
       </h1>
 
-      <div class="hero__dimension" aria-hidden="true">
+      <div class="hero__dimension" data-hero="dimension" aria-hidden="true">
         <span class="hero__dimension-label">
           <T text={site.hero.dimensionLabel} />
         </span>
@@ -32,11 +32,11 @@ import { site } from '../data/site';
         </svg>
       </div>
 
-      <p class="hero__lead">
+      <p class="hero__lead" data-hero="lead">
         <T text={site.hero.lead} />
       </p>
 
-      <div class="hero__ctas">
+      <div class="hero__ctas" data-hero="ctas">
         {
           site.hero.ctas.map((cta) => (
             <a class:list={['btn', cta.variant === 'primary' ? 'btn--primary' : 'btn--secondary']} href={cta.href}>

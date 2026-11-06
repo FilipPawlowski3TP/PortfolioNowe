@@ -1,0 +1,43 @@
+/* Motion layer states (MASTERPROMPT sekcja 10).
+   Initial hidden states exist ONLY with JS and ONLY when motion is allowed;
+   without JS the content is fully visible. A 3 s watchdog in Base.astro adds
+   .reveal-all if boot never completes. */
+
+@media (prefers-reduced-motion: no-preference) {
+  .js [data-hero='meta'],
+  .js [data-hero='lead'],
+  .js [data-hero='ctas'] {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  .js [data-hero='title'] {
+    opacity: 0;
+  }
+
+  .js [data-hero='dimension'] {
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left center;
+  }
+}
+
+/* Watchdog / reduced-motion fallback: everything visible immediately */
+.js.reveal-all [data-hero],
+.js.reveal-all .section__heading,
+.js.reveal-all .section__label,
+.js.reveal-all .section__intro {
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.15s !important;
+    transition-duration: 0.15s !important;
+    scroll-behavior: auto !important;
+  }
+}
