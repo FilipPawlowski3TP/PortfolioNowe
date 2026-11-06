@@ -45,23 +45,34 @@
   margin: 0 0 var(--sp-12);
 }
 
-/* Alternating surfaces keep the scroll rhythm without decorations */
+/* Alternating surfaces keep the rhythm; semi-transparent veils let the WebGL
+   scene read through the whole scroll (masterprompt 11.1) */
+main,
+.site-footer {
+  position: relative;
+  z-index: 1;
+}
+
 .offer,
 .standard {
-  background: var(--c-surface);
+  background: color-mix(in oklab, var(--c-surface) 88%, transparent);
 }
 
 .process,
 .faq {
-  background: var(--c-bg);
+  background: color-mix(in oklab, var(--c-bg) 85%, transparent);
 }
 
 .case-study {
-  background: var(--c-surface);
+  background: color-mix(in oklab, var(--c-surface) 88%, transparent);
 }
 
 .contact {
-  background: linear-gradient(180deg, var(--c-surface) 0%, var(--c-bg) 100%);
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--c-surface) 88%, transparent) 0%,
+    color-mix(in oklab, var(--c-bg) 85%, transparent) 100%
+  );
 }
 
 @media (max-width: 48rem) {

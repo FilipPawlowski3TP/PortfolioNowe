@@ -39,6 +39,9 @@ const year = new Date().getFullYear();
     </script>
   </head>
   <body>
+    <div class="scene-root" id="scene-root" aria-hidden="true">
+      <div class="scene-fallback"></div>
+    </div>
     <a class="skip-link" href="#tresc">Przejdź do treści</a>
     <slot />
     <script>

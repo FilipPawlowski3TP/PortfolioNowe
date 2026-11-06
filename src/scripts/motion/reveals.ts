@@ -11,36 +11,8 @@ export function initReveals(): void {
   const mm = gsap.matchMedia();
 
   mm.add('(prefers-reduced-motion: no-preference)', () => {
-    // --- Act I entrance: single sequence, <= 1.2 s total ---
-    const hero = gsap.timeline({ defaults: { ease: 'power3.out' } });
-    hero
-      .to('[data-hero="meta"]', { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.08 }, 0.05)
-      .fromTo(
-        '[data-hero="dimension"]',
-        { autoAlpha: 0, scaleX: 0 },
-        { autoAlpha: 1, scaleX: 1, duration: 0.8, transformOrigin: 'left center' },
-        0.15,
-      )
-      .to('[data-hero="lead"]', { autoAlpha: 1, y: 0, duration: 0.65 }, 0.5)
-      .to('[data-hero="ctas"]', { autoAlpha: 1, y: 0, duration: 0.6 }, 0.62);
-
-    // H1: masked line reveal (CSS keeps it hidden until split to avoid a flash)
-    SplitText.create('[data-hero="title"]', {
-      type: 'lines',
-      mask: 'lines',
-      aria: 'auto',
-      autoSplit: true,
-      onSplit: (self) => {
-        gsap.set('[data-hero="title"]', { opacity: 1 });
-        return gsap.from(self.lines, {
-          yPercent: 110,
-          duration: 0.9,
-          stagger: 0.09,
-          ease: 'power3.out',
-          delay: 0.25,
-        });
-      },
-    });
+    // Hero entrance is pure CSS (motion.css) so the LCP element paints at
+    // first render — JS never gates hero visibility (masterprompt sekcja 9).
 
     // --- Section headings: masked line reveal on scroll ---
     gsap.utils.toArray<HTMLElement>('.section__heading').forEach((el) => {
