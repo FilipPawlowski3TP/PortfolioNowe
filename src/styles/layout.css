@@ -67,70 +67,71 @@ main > .process {
 main > .case-study {
   z-index: 4;
 }
-main > .standard,
-main > .faq {
+main > .standard {
   z-index: 5;
 }
-main > .contact {
+main > .faq {
   z-index: 6;
 }
-.site-footer {
+main > .contact {
   z-index: 7;
 }
+.site-footer {
+  z-index: 8;
+}
 
-/* Full-viewport act stages: content optically centered so a pinned act never
-   hangs "too high" (owner feedback) */
+/* Full-viewport act stages: content optically centred so a pinned act never
+   hangs "too high" (owner feedback). 'safe center' prevents start-edge clipping
+   when a stage is taller than a short window. NEVER stretch .container to full
+   width here — that was the "rozjeżdża się/ucina" bug on wide windows. */
 @media (min-width: 60rem) {
   .hero,
   .offer,
   .process,
-  .case-study {
+  .case-study,
+  .standard,
+  .faq,
+  .contact {
     min-height: 100svh;
     display: flex;
-    align-items: center;
-  }
-
-  .hero > *,
-  .offer > *,
-  .process > *,
-  .case-study > * {
-    width: 100%;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: safe center;
+    padding-block: var(--sp-12);
   }
 }
 
-.offer,
-.standard {
-  background: color-mix(in oklab, var(--c-surface) 88%, transparent);
+/* Section veils form ONE continuous gradient chain: each section starts at the
+   previous section's end color — zero hard seams, zero feather bands (bugfix:
+   mask-image feathering produced visible pink bands over the scene glow).
+   --veil-* share the exact same color-mix so boundaries match by construction. */
+:root {
+  --veil-surface: color-mix(in oklab, var(--c-surface) 88%, transparent);
+  --veil-bg: color-mix(in oklab, var(--c-bg) 85%, transparent);
 }
 
-.process,
-.faq {
-  background: color-mix(in oklab, var(--c-bg) 85%, transparent);
+.offer {
+  background: linear-gradient(180deg, transparent 0, var(--veil-surface) 14rem, var(--veil-surface) 100%);
+}
+
+.process {
+  background: linear-gradient(180deg, var(--veil-surface) 0, var(--veil-bg) 14rem, var(--veil-bg) 100%);
 }
 
 .case-study {
-  background: color-mix(in oklab, var(--c-surface) 88%, transparent);
+  background: linear-gradient(180deg, var(--veil-bg) 0, var(--veil-surface) 14rem, var(--veil-surface) 100%);
+}
+
+.standard {
+  background: var(--veil-surface);
+}
+
+.faq {
+  background: linear-gradient(180deg, var(--veil-surface) 0, var(--veil-bg) 14rem, var(--veil-bg) 100%);
 }
 
 .contact {
-  background: linear-gradient(
-    180deg,
-    color-mix(in oklab, var(--c-surface) 88%, transparent) 0%,
-    color-mix(in oklab, var(--c-bg) 85%, transparent) 100%
-  );
-}
-
-/* Feathered top edges: section backgrounds fade into each other instead of a
-   hard cut (owner feedback on hand-offs). A mask (not an overlay) — it fades
-   the section's own veil; content sits below the 6rem feather (sp-section). */
-.offer,
-.process,
-.case-study,
-.standard,
-.faq,
-.contact {
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 6rem);
-  mask-image: linear-gradient(180deg, transparent 0, #000 6rem);
+  background: linear-gradient(180deg, var(--veil-bg) 0, var(--veil-bg) 60%, var(--veil-surface) 100%);
 }
 
 @media (max-width: 48rem) {

@@ -111,12 +111,6 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, dpr));
       (uniforms.uPixelRatio.value as number) = Math.min(window.devicePixelRatio || 1, dpr);
     },
-    downgradeTier() {
-      // Step down hard: drop the scene entirely (Tier 0 fallback) rather than
-      // flicker between quality levels mid-session.
-      handle.destroy();
-      mount.classList.add('scene-tier-0');
-    },
   });
 
   // --- Sizing (ResizeObserver + debounce; ignore mobile URL-bar height noise) ---
@@ -208,10 +202,10 @@ export function initScene(tier: Tier, state: SceneState, mount: HTMLElement): Sc
     camera.position.z = 9 - smooth.progress * 3.2;
     camera.lookAt(0, 0.9 - smooth.progress * 0.4, -2);
 
-    // Devices window (Act IV): fade in around the case study, fade out after
+    // Devices window: visible for the whole case-study act, fades after it
     if (devices) {
       const window01 =
-        smoothstep(0.42, 0.54, smooth.progress) * (1 - smoothstep(0.68, 0.8, smooth.progress));
+        smoothstep(0.4, 0.5, smooth.progress) * (1 - smoothstep(0.86, 0.94, smooth.progress));
       devices.setOpacity(window01);
       devices.group.visible = window01 > 0.004;
     }
