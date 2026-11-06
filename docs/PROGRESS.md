@@ -41,3 +41,10 @@
 **Dowody (`docs/qa/phase3/`):** 7 viewportów (360–1920): brak poziomego scrolla, 1×h1, 0 błędów konsoli, 0 uszkodzonych obrazów; axe (WCAG 2.x AA): **0 naruszeń serious/critical**; Lighthouse (localhost): **SEO 100, dostępność 100, best-practices 100**; przegląd wizualny zrzutów: układ hierarchiczny, case study kompletny (zrzuty klienta w ramkach), stopka OK, mobile OK.
 **Poprawki po przeglądzie:** rozmiar/waga drobnych etykiet (0,72→0,8 rem, 500), placeholder selecta, margines nagłówków sekcji, skrypt QA wymusza leniwe obrazy przed zrzutem.
 **Dalej:** Faza 4 — ruch (Lenis + GSAP: wejście hero, reveals, menu mobilne, reduced-motion).
+
+## Faza 4 — Warstwa ruchu — GOTOWE (2026-11-06)
+
+**Zrobione:** `smooth-scroll.ts` (Lenis ↔ ScrollTrigger, jedna pętla gsap.ticker, zał. A), `reveals.ts` (wejście hero ≤1,2 s, masked line reveals SplitText `aria:'auto'`, fades dla intro, pin procesu ≤2 ekrany desktop), `menu.ts` (details + Esc + `inert` + `lenis.stop()`), `boot.ts` (reduced-motion, watchdog 3 s → `reveal-all`, `ScrollTrigger.refresh` po fontach/obrazach), `motion.css` (stany początkowe tylko `.js` + no-preference).
+**Dowody (`docs/qa/phase4/`, skrypty phase4-qa):** boot gotowy, hero widoczne po wejściu (opacity 1×4), kotwica „Oferta” → hash + scrollY 956 + fokus na `#offer-h2`, 0 błędów konsoli; reduced-motion: treść widoczna, 0 pinów; JS wyłączony: treść widoczna; menu mobilne: inert na main + Esc zamyka; CLS **0,001** (Lighthouse mobile, perf 99, LCP 1,99 s, TBT 1 ms); axe serious/critical **0** na 7 viewportach i w środku pinu.
+**Poprawka:** pin procesu pierwotnie ściemniał tekst kroków (kontrast 2,43:1, axe serious) — efekt zmieniony na ruch + kolor numerów (dostępność > efekty, MASTERPROMPT sekcja 0.2).
+**Dalej:** Faza 5 — WebGL (tier.ts, scena blueprint, cząsteczki, mockupy, crossfade z fallbacku).
