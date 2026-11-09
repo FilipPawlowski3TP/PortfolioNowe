@@ -123,3 +123,11 @@ Licznik zużycia (Krok 0/1): agent nie ma dostępu do licznika zużycia UI — d
 - Fokus: 2px solid #2A3BFF ✓; 0 błędów konsoli; fallbacky reduce/no-JS ✓ (gate2/gate3).
 - Checklista anty-slop §11: ✓ brak gradientów/poświat/glassmorphism (grep 0) ✓ brak wersalików/etykiet (text-transform 0) ✓ brak opinii/nagród/liczb bez pokrycia (liczby tylko z BRIEF §5) ✓ brak kart z ikonami (numerowane wiersze; jedyne SVG = rysowana linia) ✓ każdy ruch ma cel ✓ jeden akcent --signal ✓ hero bez kolizji (test) ✓ bez JS i reduced-motion działa.
 - Uwaga metodyczna testu układu (v3): recty przycinane do klipu overflow i do viewportu; kolizje liczone tylko w widocznym obszarze; efektywna opacity (dzieci wygaszanych kontenerów).
+
+### Krok 5 — Ogromny przycięty wordmark w stopce (§8, opcjonalny)
+- `Footer.astro` z propsem `giant` (tylko strona główna; strony prawne bez zmian wg zakazu §0). Tekst dekoracyjny `aria-hidden="true"` (nazwa jest już w treści stopki).
+- `.site-footer__giant`: font-display 800, clamp(4.5rem, 17.5vw, 20rem), tracking −0.05em, nowrap, overflow: hidden + ujemny margines dolny — przycięcie po bokach i na linii bazowej.
+- Dowody (`gate5-report.json`, mozaika `mosaic-k5.png`): tekst szerszy od viewportu na 360/768/1440/1920 (582/1087/2038/2588 px przy 360/768/1440/1920) = przycięty wszędzie; hScroll 0; layout.mjs PASS (64 119 par) po zmianie.
+
+## VISUAL RESET v2 — stan końcowy (2026-11-09)
+Kroki 0–5 zamknięte w gałęzi `visual-reset`. Lighthouse mobile 98/100/100/100 (LCP 2,4 s), desktop 100/100/100/100. axe 0. layout.mjs PASS. Anti-slop §11 ✓. Pozostało poza zakresem: fazy 6–9 (backend formularza/cookies/SEO techniczne/wdrożenie), `TODO_DOMENA` (decyzja użytkownika), brak telefonu (G0 — CTA „Zadzwoń" pominięte).

@@ -356,6 +356,27 @@
   color: var(--mute);
 }
 
+/* Krok 5 (§8): the huge cropped wordmark — cut at both sides and at the
+   baseline. Decorative sign-off (aria-hidden; the name is in the content). */
+.site-footer__giant {
+  overflow: hidden;
+  margin-top: clamp(32px, 6vh, 72px);
+  line-height: 0.72;
+  user-select: none;
+}
+
+.site-footer__giant span {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4.5rem, 17.5vw, 20rem);
+  letter-spacing: -0.05em;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--ink);
+  margin-bottom: -0.2em;
+}
+
 .site-footer a {
   color: var(--mute);
 }

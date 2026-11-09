@@ -1,10 +1,15 @@
 ---
 // VISUAL RESET v2 §5.8 — Stopka: service provider data (no company data —
-// owner decision G0, BRIEF §3) and legal links. The huge cropped wordmark is
-// optional Krok 5.
+// owner decision G0, BRIEF §3) and legal links. Krok 5 (§8): the huge cropped
+// wordmark — homepage only (giant prop; legal pages keep the plain footer).
 import T from './T.astro';
 import { site } from '../data/site';
 
+interface Props {
+  giant?: boolean;
+}
+
+const { giant = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -29,4 +34,11 @@ const year = new Date().getFullYear();
     </nav>
     <p>{site.footer.copyright(year)}</p>
   </div>
+  {
+    giant && (
+      <div class="site-footer__giant" aria-hidden="true">
+        <span>Pawłowski Studio</span>
+      </div>
+    )
+  }
 </footer>
