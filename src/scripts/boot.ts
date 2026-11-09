@@ -1,7 +1,12 @@
-// Motion boot (VISUAL RESET v2, §8 Krok 0): simplified to initMotion().
-// Content is visible without JS; a 3 s watchdog (Base.astro) reveals
-// everything if this module never runs or throws. No WebGL, no canvas.
+// Motion boot (VISUAL RESET v2, §8): initMotion() = wayfinding + the hero
+// pinned sequence ("wizytówka → strona", §6). Content is visible without JS;
+// a 3 s watchdog (Base.astro) reveals everything if this module never runs.
+// Static page state is the default — motion only under prefers-reduced-motion:
+// no-preference (html.motion-on marks a live sequence).
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initSmoothScroll, initAnchors, initScrollspy } from './motion/smooth-scroll';
 import { initMenu } from './motion/menu';
+import { initHeroWindow } from './motion/hero-window';
 
 declare global {
   interface Window {
@@ -11,8 +16,24 @@ declare global {
 
 export function initMotion(): void {
   // Wayfinding is not motion — works in every mode.
-  initMenu(null);
+  initScrollspy();
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) {
+    window.__MOTION_READY__ = true;
+    return;
+  }
+
+  const lenis = initSmoothScroll();
+  initAnchors(lenis);
+  initMenu(lenis);
+  initHeroWindow();
+
   window.__MOTION_READY__ = true;
+
+  // Triggers depend on layout: refresh once fonts and images settle.
+  document.fonts.ready.then(() => ScrollTrigger.refresh());
+  window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
 }
 
 try {

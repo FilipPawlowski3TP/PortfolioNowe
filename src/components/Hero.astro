@@ -1,6 +1,8 @@
 ---
-// VISUAL RESET v2 §5.1 — Hero + realization thumbnail ("wizytówka → strona").
-// Static in Krok 1; the pinned expansion sequence lands in Krok 2.
+// VISUAL RESET v2 §5.1/§6 — Hero + realization window ("wizytówka → strona").
+// The card is a static placeholder (thumbnail, aspect = browser window); the
+// frame is the full-viewport window with the full realization shot, scaled
+// onto the card by the pinned sequence (motion mode only — Krok 2).
 import T from './T.astro';
 import { site } from '../data/site';
 ---
@@ -17,7 +19,7 @@ import { site } from '../data/site';
       }
     </h1>
 
-    <div class="hero__text">
+    <div class="hero__text" data-hero-text>
       <p class="hero__lead">
         <T text={site.hero.lead} />
       </p>
@@ -45,5 +47,26 @@ import { site } from '../data/site';
       </div>
       <figcaption class="caption">Realizacja: Koparki Pawłowski</figcaption>
     </figure>
+  </div>
+
+  <!-- The window (§6): full-viewport frame, transformed onto the card at rest.
+       Hidden unless html.motion-on (live pinned sequence). -->
+  <div class="hero__frame" data-frame>
+    <img
+      class="hero__frame-img"
+      data-frame-img
+      src="/media/case-desktop-full.webp"
+      width="1440"
+      height="3150"
+      loading="lazy"
+      decoding="async"
+      alt="Pełna strona realizacji Koparki Pawłowski"
+    />
+    <div class="hero__frame-pill" data-frame-pill>
+      <a href="https://koparkapawlowski.pl/" target="_blank" rel="noopener">Koparki Pawłowski — zobacz na żywo</a>
+    </div>
+    <div class="hero__frame-progress" data-frame-progress aria-hidden="true">
+      <span data-frame-progress-bar></span>
+    </div>
   </div>
 </section>

@@ -2,10 +2,14 @@
 // 360/390/768/1280/1440/1920 x scroll positions 0/25/50/75/100%:
 //   1. no horizontal scroll (scrollWidth <= innerWidth),
 //   2. no text overlaps (pairwise intersection <= 2px^2, non-ancestor pairs;
-//      text over the realization thumbnail counts too),
+//      text over the realization thumbnail/window counts too),
 //   3. no text outside 0..innerWidth.
-// aria-hidden elements (honeypot) are excluded. Result reported as numbers.
+// Rects are clipped by overflow:hidden ancestors (a clipped window image must
+// not "overlap" what it only covers virtually). aria-hidden elements
+// (honeypot) are excluded; the caption pill over the window is the sanctioned
+// exception. Result reported as numbers.
 import { chromium } from 'playwright';
+import { writeFileSync } from 'node:fs';
 
 const BASE = 'http://127.0.0.1:4321/';
 const WIDTHS = [360, 390, 768, 1280, 1440, 1920];
@@ -14,14 +18,44 @@ const SCROLLS = [0, 0.25, 0.5, 0.75, 1];
 const CHECK = () => {
   const SEL = 'h1, h2, h3, p, a, button, label, summary, figcaption';
   const visible = (el) => {
-    const s = getComputedStyle(el);
-    if (s.display === 'none' || s.visibility === 'hidden' || parseFloat(s.opacity) === 0) return false;
+    // Effective visibility: a child of a fully transparent parent is not
+    // visible even though its own computed opacity is 1.
+    let n = el;
+    while (n && n !== document.documentElement) {
+      const s = getComputedStyle(n);
+      if (s.display === 'none' || s.visibility === 'hidden' || parseFloat(s.opacity) === 0) return false;
+      n = n.parentElement;
+    }
     const r = el.getBoundingClientRect();
     return r.width > 0 && r.height > 0;
   };
   const hiddenFromA11y = (el) => !!el.closest('[aria-hidden="true"]');
+
+  // Rect clipped by every overflow:hidden ancestor chain member.
+  const clipped = (el) => {
+    const r = el.getBoundingClientRect();
+    let box = { left: r.left, right: r.right, top: r.top, bottom: r.bottom };
+    let p = el.parentElement;
+    while (p) {
+      const s = getComputedStyle(p);
+      if (s.overflowX !== 'visible' || s.overflowY !== 'visible') {
+        const pr = p.getBoundingClientRect();
+        box = {
+          left: Math.max(box.left, pr.left),
+          right: Math.min(box.right, pr.right),
+          top: Math.max(box.top, pr.top),
+          bottom: Math.min(box.bottom, pr.bottom),
+        };
+      }
+      p = p.parentElement;
+    }
+    return box;
+  };
+
   const els = [...document.querySelectorAll(SEL)].filter((el) => visible(el) && !hiddenFromA11y(el));
-  const thumbs = [...document.querySelectorAll('[data-card], [data-card] img')].filter((el) => visible(el) && !hiddenFromA11y(el));
+  const thumbs = [...document.querySelectorAll('[data-card], [data-card] img, [data-frame] img')].filter(
+    (el) => visible(el) && !hiddenFromA11y(el),
+  );
 
   let pairs = 0;
   const overlaps = [];
@@ -35,7 +69,7 @@ const CHECK = () => {
 
   for (let i = 0; i < els.length; i++) {
     const a = els[i];
-    const ra = a.getBoundingClientRect();
+    const ra = clipped(a);
     // 3) nothing outside the viewport
     if (ra.left < -1 || ra.right > innerWidth + 1) {
       outside.push(`${a.tagName}.${a.className || '-'}@${ra.left.toFixed(0)}..${ra.right.toFixed(0)}`);
@@ -44,15 +78,17 @@ const CHECK = () => {
       const b = els[j];
       if (a.contains(b) || b.contains(a)) continue; // ancestor pairs excluded
       pairs++;
-      const area = inter(ra, b.getBoundingClientRect());
+      const area = inter(ra, clipped(b));
       if (area > 2) overlaps.push(`${a.tagName}.${a.className || '-'}/${b.tagName}.${b.className || '-'}:${area.toFixed(0)}`);
     }
-    // text over the realization thumbnail (caption pill excepted via figcaption)
+    // text over the realization thumbnail/window (the caption pill is the
+    // sanctioned exception — §9 "poza pigułką z podpisem")
     for (const t of thumbs) {
       if (a.contains(t) || t.contains(a)) continue;
       if (a.tagName === 'FIGCAPTION') continue;
+      if (a.closest('[data-frame-pill]')) continue;
       pairs++;
-      const area = inter(ra, t.getBoundingClientRect());
+      const area = inter(ra, clipped(t));
       if (area > 2) overlaps.push(`${a.tagName}.${a.className || '-'}/IMG:${area.toFixed(0)}`);
     }
   }
@@ -104,6 +140,7 @@ const run = async () => {
   }
 
   await browser.close();
+  writeFileSync('C:/Users/karolina/Desktop/PortfolioClaud/docs/qa/visual-reset/layout-report.json', JSON.stringify(report, null, 2));
   console.log(JSON.stringify(report, null, 2));
   const pass = report.totals.overlaps === 0 && report.totals.outside === 0 && report.totals.hScroll === 0;
   console.log(`LAYOUT TEST: ${pass ? 'PASS' : 'FAIL'} — pairs checked: ${report.totals.pairs}`);

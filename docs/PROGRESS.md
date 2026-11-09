@@ -97,3 +97,12 @@ Spec: VISUAL_RESET_v2 („Wizytówka → strona") — zastępuje PATCH v1.1 i se
 - Dowody: `layout.mjs` (§9) PASS — 68 310 par, 0 kolizji, 0 poza ekranem, 0 hScroll (360–1920, 5 pozycji scrolla); `gate1.mjs`: axe serious/critical 0 (desktop+mobile), fokus 2 px solid #2A3BFF, 0 błędów konsoli; bez JS: treść, formularz i menu widoczne.
 
 Licznik zużycia (Krok 0/1): agent nie ma dostępu do licznika zużycia UI — do uzupełnienia z widocznego licznika przed/po.
+
+### Krok 2 — Hero + okno realizacji (pinned-sekwencja)
+- API zweryfikowane wg §0.5: npm registry gsap 3.15.1 / lenis 1.3.27 (bez zmian), lenis d.ts potwierdza autoRaf/anchors/respectReducedMotion; html.js dodaje Base.astro (inline).
+- Sekwencja `hero-window.ts`: JEDEN ScrollTrigger (pin: true, scrub, invalidateOnRefresh), faza 1 = rozwinięcie okna 100vh (desktop) / 80vh (mobile), faza 2 = przewijanie zrzutu 300vh / 200vh, potem odpięcie i odjazd okna. Transform/opacity/borderRadius tylko. Lenis+ScrollTrigger w jednej pętli (gsap.ticker).
+- Karta: aspekt = 100vw/100vh (aspekt okna przeglądarki, §6) — ramka (100vw×100vh) mapuje się na kartę dokładnie (x/y/scale = rect()).
+- Pigułka „Koparki Pawłowski — zobacz na żywo" (lewy dół, wychodzi na https://koparkapawlowski.pl/) + cienki pasek postępu (prawy dół) — widoczne w fazie 2.
+- Fallbacki: html.motion-on tylko przy pełnej inicjalizacji; bez JS / reduce / błąd boot = miniatura w hero + obraz pierwszego ekranu w Realizacji (§6).
+- Naprawiony capture-realization.mjs: przycięcie clip zamiast skalowania (było 1413×6400 — zdeformowane) → 2880×6300 (342 KB) i 780×5600 (162 KB), wymiary zgodne z oczekiwanymi; budżety §6 ✓.
+- layout.mjs v2: recty przycinane do klipu overflow:hidden (obraz okna nie „zachodzi" wirtualnie) + efektywna opacity (dzieci wygaszanego kontenera niewidoczne). PASS — 65 070 par, 0 kolizji, 0 poza ekranem, 0 hScroll.
