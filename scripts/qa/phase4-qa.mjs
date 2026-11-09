@@ -28,7 +28,7 @@ const ok = (msg) => console.log('ok:', msg);
   ready ? ok('boot: __MOTION_READY__') : fail('boot not ready');
 
   const heroOpacity = await page.evaluate(() =>
-    ['title', 'lead', 'ctas', 'dimension'].map((k) => {
+    ['title', 'lead', 'ctas'].map((k) => {
       const el = document.querySelector(`[data-hero="${k}"]`);
       return el ? parseFloat(getComputedStyle(el).opacity) : -1;
     }),

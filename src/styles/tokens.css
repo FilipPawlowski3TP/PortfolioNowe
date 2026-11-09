@@ -46,7 +46,7 @@
   --sp-8: 2rem;
   --sp-12: 3rem;
   --sp-16: 4rem;
-  --sp-section: clamp(4rem, 10vh, 8rem);
+  --sp-section: clamp(4rem, 10vh, 8.75rem);
 
   /* Shape & lines */
   --radius: 2px;

@@ -47,10 +47,7 @@ export const site = {
   },
 
   hero: {
-    // Variant C — "drawing title card" (see docs/DESIGN_PLAN.md section 3)
-    drawingMeta: { project: 'PROJEKT: STRONA, KTÓRA PRACUJE', scale: 'SKALA 1:1', year: 'ROK 2026' },
     h1: 'Strony internetowe, po których klienci do Ciebie piszą',
-    dimensionLabel: '5 sekund na pierwsze wrażenie',
     lead:
       'Projektuję i buduję strony dla małych firm i usługodawców. Bez szablonów i technicznego żargonu — za to szybkie, czytelne i gotowe na Twoich klientów.',
     ctas: [
@@ -122,16 +119,16 @@ export const site = {
   caseStudy: {
     id: 'realizacje',
     label: 'Realizacja',
-    heading: 'Koparki Pawłowski — strona, która pracuje',
+    heading: 'Koparki Pawłowski — nowa strona firmy',
     problem:
       'Firma usługowa z Wrocławia potrzebowała strony, która jasno pokaże ofertę minikoparki i ułatwi klientom kontakt — także z telefonu, na budowie.',
     work:
       'Wielostronicowa strona z osobnymi podstronami usług, treściami pod wyszukiwarkę lokalną i prostym kontaktem. Zbudowana w Astro, hostowana na Cloudflare — bez ciężkich skryptów, bez plików cookies, z zabezpieczeniami (CSP, HSTS) w standardzie.',
     results: [
       'Wydajność i dostępność: 100/100 w Lighthouse — na telefonie i na komputerze.',
-      'Strona wczytuje się w ok. 0,5 s na komputerze i 1,5 s na telefonie.',
+      'LCP 0,44 s na komputerze i 1,54 s na telefonie.',
       'Cały serwis to ok. 74 KB transferu na start i zero plików cookies.',
-      '11 podstron, w tym osobne strony usług pod wyszukiwarkę lokalną.',
+      'Osobne strony usług, przygotowane pod wyszukiwarkę lokalną.',
     ],
     cta: { href: 'https://koparkapawlowski.pl/', label: 'Zobacz stronę na żywo', external: true },
     nextSlot: 'Kolejne realizacje wkrótce.',

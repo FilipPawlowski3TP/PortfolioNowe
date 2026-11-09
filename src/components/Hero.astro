@@ -1,36 +1,16 @@
 ---
-// Act I — Hero ("Szkic"), layout variant C: drawing title card.
+// Act I — Hero. PATCH v1.1: no drawing decorations; the LayerStack object
+// is anchored on the right by an empty placeholder (its box = object placement).
 import T from './T.astro';
 import { site } from '../data/site';
 ---
 
 <section class="hero" aria-labelledby="hero-h1">
   <div class="hero__frame">
-    <div class="hero__meta hero__meta--tl" data-hero="meta">
-      <T text={site.hero.drawingMeta.project} />
-    </div>
-    <div class="hero__meta hero__meta--tr" data-hero="meta">
-      <T text={site.hero.drawingMeta.scale} />
-    </div>
-    <div class="hero__meta hero__meta--br" data-hero="meta">
-      <T text={site.hero.drawingMeta.year} />
-    </div>
-
     <div class="hero__content">
       <h1 id="hero-h1" class="hero__h1" data-hero="title">
         <T text={site.hero.h1} />
       </h1>
-
-      <div class="hero__dimension" data-hero="dimension" aria-hidden="true">
-        <span class="hero__dimension-label">
-          <T text={site.hero.dimensionLabel} />
-        </span>
-        <svg class="hero__dimension-line" viewBox="0 0 600 12" preserveAspectRatio="none">
-          <line x1="2" y1="6" x2="598" y2="6" stroke="currentColor" stroke-width="1"></line>
-          <line x1="2" y1="1" x2="2" y2="11" stroke="currentColor" stroke-width="1"></line>
-          <line x1="598" y1="1" x2="598" y2="11" stroke="currentColor" stroke-width="1"></line>
-        </svg>
-      </div>
 
       <p class="hero__lead" data-hero="lead">
         <T text={site.hero.lead} />
@@ -46,5 +26,7 @@ import { site } from '../data/site';
         }
       </div>
     </div>
+
+    <div class="hero__stage" data-anchor="hero" aria-hidden="true"></div>
   </div>
 </section>

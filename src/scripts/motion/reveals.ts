@@ -60,8 +60,6 @@ export function initReveals(): void {
         },
       });
       heroTl
-        .to('[data-hero="meta"]', { y: -46, ease: 'none' }, 0)
-        .to('[data-hero="dimension"]', { scaleX: 0.55, transformOrigin: 'right center', ease: 'none' }, 0)
         .to('[data-hero="title"]', { yPercent: -12, ease: 'none' }, 0)
         .to('[data-hero="lead"]', { yPercent: -7, ease: 'none' }, 0)
         .to('[data-hero="ctas"]', { yPercent: -3, ease: 'none' }, 0);

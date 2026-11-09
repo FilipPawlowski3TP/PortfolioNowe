@@ -1,5 +1,9 @@
 ---
-// Act IV — Realizacje ("Premiera"). Facts come only from the Phase 0 audit.
+// Act IV — Realizacje. Facts come only from saved measurements (PATCH v1.1 §1.5):
+// 100/100 + LCP -> docs/audit/lh-{desktop,mobile}.json (koparkapawlowski.pl),
+// 74 KB + zero cookies -> docs/audit/case-study-audit.json.
+// Main illustration = the 3D LayerStack anchored on .case-study__stage; the flat
+// 2D screenshots stay as the Tier 0 / no-WebGL fallback only.
 import T from './T.astro';
 import { site } from '../data/site';
 ---
@@ -14,27 +18,31 @@ import { site } from '../data/site';
     </h2>
 
     <div class="case-study__grid">
-      <div class="case-study__mockups">
-        <figure class="device-frame device-frame--laptop">
-          <img
-            src="/media/case-desktop-hero.png"
-            alt="Strona firmy Koparki Pawłowski na ekranie komputera — sekcja główna z nagłówkiem i przyciskami kontaktu."
-            width="1440"
-            height="900"
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
-        <figure class="device-frame device-frame--phone">
-          <img
-            src="/media/case-mobile-hero.png"
-            alt="Ta sama strona na ekranie telefonu — wersja mobilna sekcji głównej."
-            width="390"
-            height="844"
-            loading="lazy"
-            decoding="async"
-          />
-        </figure>
+      <div class="case-study__visual">
+        <div class="case-study__stage" data-anchor="case" aria-hidden="true"></div>
+
+        <div class="case-study__fallback">
+          <figure class="device-frame device-frame--laptop">
+            <img
+              src="/media/case-desktop-hero.png"
+              alt="Strona firmy Koparki Pawłowski na ekranie komputera — sekcja główna z nagłówkiem i przyciskami kontaktu."
+              width="1440"
+              height="900"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+          <figure class="device-frame device-frame--phone">
+            <img
+              src="/media/case-mobile-hero.png"
+              alt="Ta sama strona na ekranie telefonu — wersja mobilna sekcji głównej."
+              width="390"
+              height="844"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </div>
       </div>
 
       <div class="case-study__story">
