@@ -1,25 +1,30 @@
 ---
-// Act I — Hero. PATCH v1.1: no drawing decorations; the LayerStack object
-// is anchored on the right by an empty placeholder (its box = object placement).
+// VISUAL RESET v2 §5.1 — Hero + realization thumbnail ("wizytówka → strona").
+// Static in Krok 1; the pinned expansion sequence lands in Krok 2.
 import T from './T.astro';
 import { site } from '../data/site';
 ---
 
-<section class="hero" aria-labelledby="hero-h1">
-  <div class="hero__frame">
-    <div class="hero__content">
-      <h1 id="hero-h1" class="hero__h1" data-hero="title">
-        <T text={site.hero.h1} />
-      </h1>
+<section class="hero" id="hero" data-hero>
+  <div class="container hero__inner">
+    <h1 class="hero__h1" data-hero-text>
+      {
+        site.hero.h1.map((line) => (
+          <span class="hero__line">
+            <T text={line} />
+          </span>
+        ))
+      }
+    </h1>
 
-      <p class="hero__lead" data-hero="lead">
+    <div class="hero__text">
+      <p class="hero__lead">
         <T text={site.hero.lead} />
       </p>
-
-      <div class="hero__ctas" data-hero="ctas">
+      <div class="hero__ctas">
         {
           site.hero.ctas.map((cta) => (
-            <a class:list={['btn', cta.variant === 'primary' ? 'btn--primary' : 'btn--secondary']} href={cta.href}>
+            <a class={`btn btn--${cta.variant}`} href={cta.href}>
               <T text={cta.label} />
             </a>
           ))
@@ -27,6 +32,18 @@ import { site } from '../data/site';
       </div>
     </div>
 
-    <div class="hero__stage" data-anchor="hero" aria-hidden="true"></div>
+    <figure class="hero__shot" data-card>
+      <div class="hero__shot-frame">
+        <img
+          src="/media/case-desktop-thumb.webp"
+          width="900"
+          height="562"
+          fetchpriority="high"
+          decoding="async"
+          alt="Pierwszy ekran strony Koparki Pawłowski — realizacja studia"
+        />
+      </div>
+      <figcaption class="caption">Realizacja: Koparki Pawłowski</figcaption>
+    </figure>
   </div>
 </section>

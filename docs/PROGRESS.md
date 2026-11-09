@@ -77,3 +77,23 @@ Feedback: przerwy dalej, Standard/FAQ/Kontakt bez efektu, gradienty się bugują
 **Naprawione bugi (przyczyny, nie objawy):** (1) **3D znikało po czasie** — adaptacyjna jakość przy p95>22 ms **niszczyła scenę** (destroy) → teraz tylko obniża DPR do 1, nigdy nie kasuje; mockupy widoczne przez cały akt Realizacji (okno 0,40–0,94). (2) **Rozjeżdżanie/ucinanie na szerokich oknach** — `.act .container { width: 100% }` rozpychał kontener na całą szerokość (1817px zamiast 1152) → usunięte; `justify-content: safe center` (bez przycięć u góry na niskich oknach); piny tylko przy ≥50rem wysokości (niżej czysty scrub). (3) **Pasy w gradientach** — maski piórkujące robiły różowe pasy nad poświatą sceny → usunięte; ciągły łańcuch gradientów (`--veil-surface`/`--veil-bg`, koniec sekcji = początek następnej). (4) **Przerwy** — hero nie zjeżdża już w całości (parallax, oferta wjeżdża na wierzch); beaty-haki TERAZ we wszystkich 7 aktach (Oferta: karty, Proces: kroki, Realizacje: etapy, Standard: filary, FAQ: pytania, Kontakt: formularz+blok), piny w kolejności DOM (kolizje: 0), przejścia na pełnym dystansie.
 **Dowody:** phase4/5 ALL PASS; kolizje 0 (7 pinów); axe 0 (5 pozycji, nowe piny); **LH mobile 97** (TBT 185 ms, LCP 1,24 s), **desktop 100** (CLS 0,000); geometria na 1817×685: kontener 1152px centrowany, nic nie ucięte (vision ✓).
 **Dalej:** akceptacja → Faza 6.
+
+## VISUAL RESET v2 (2026-11-09) — gałąź `visual-reset`
+
+Spec: VISUAL_RESET_v2 („Wizytówka → strona") — zastępuje PATCH v1.1 i sekcje 8–11 MASTERPROMPT.
+
+### Krok 0 — Sprzątanie
+- Punkt zwrotny: commit „checkpoint: state before VISUAL RESET v2" (gałąź `visual-reset` od niego).
+- Usunięte: `src/scripts/webgl/*` (scena LayerStack), `three` + `@types/three` (0 wpisów w package.json; grep `dist/_astro` bez three).
+- `boot.ts` = `initMotion()` (tylko menu) — bez WebGL, bez canvasu.
+- Zrzuty realizacji (koparkapawlowski.pl, webp w `public/media/`): desktop-thumb 27 KB (900 px), desktop-full 223 KB (≤3200 px), mobile-thumb 65 KB, mobile-full 79 KB (≤2800 px) — budżety §6 (80/450 KB) ✓.
+- `astro build` ✓ (4 strony); `npm run build` failuje wyłącznie na `TODO_DOMENA` (brak domeny — decyzja użytkownika).
+- Fonty: `@fontsource-variable/bricolage-grotesque` + `instrument-sans` 5.3.0 wg §4 (stare woff2 ze scaffolds miały po jednym wariancie, rodowód nieznany).
+
+### Krok 1 — System i statyczna strona
+- Tokeny §4: `--paper/--ink/--ink-70/--mute/--line/--signal`; typografia (H1 clamp(52–128px)/0,92/−0,045em, H2 clamp(40–88px)/0,98/−0,04em), siatka 12 kol., kontener 1440, header 72 px, sekcje clamp(96–200px).
+- Sekcje §5: Hero (H1 w 3 liniach + miniatura realizacji 16:10 + podpis), Realizacja (fakty: Problem / Co zrobiłem / Technologia i wyniki), Zdanie przewodnie, Oferta (wiersze 01–04), Proces (sticky + 4 kroki), FAQ (`<details>/<summary>`), Kontakt (duży e-mail, „Kopiuj e-mail" + aria-live, formularz jak w v1), Stopka. Sekcja „Standard" usunięta (brak w §5).
+- Treść §7 w `site.ts`. Usunięte bez dowodu: „Odpowiadam w 1 dzień roboczy" (niepotwierdzone), „Kolejne realizacje wkrótce" (zakaz §3). Przycisk „Zadzwoń" pominięty (BRIEF §3/G0: brak publicznego telefonu).
+- Dowody: `layout.mjs` (§9) PASS — 68 310 par, 0 kolizji, 0 poza ekranem, 0 hScroll (360–1920, 5 pozycji scrolla); `gate1.mjs`: axe serious/critical 0 (desktop+mobile), fokus 2 px solid #2A3BFF, 0 błędów konsoli; bez JS: treść, formularz i menu widoczne.
+
+Licznik zużycia (Krok 0/1): agent nie ma dostępu do licznika zużycia UI — do uzupełnienia z widocznego licznika przed/po.

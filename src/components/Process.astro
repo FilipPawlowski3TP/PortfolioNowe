@@ -1,36 +1,39 @@
 ---
-// Act III — Proces ("Droga"). Real sequence, so numbering is meaningful.
+// VISUAL RESET v2 §5.5 — Proces: sticky heading + 4 steps. Numbering is
+// justified: this is a real sequence (§5.5).
 import T from './T.astro';
 import { site } from '../data/site';
+
+const nums = ['01', '02', '03', '04'];
 ---
 
 <section class="section process" id={site.process.id} aria-labelledby="process-h2">
-  <div class="process__stage" data-anchor="process" aria-hidden="true"></div>
-  <div class="container">
-    <p class="section__label">
-      <T text={site.process.label} />
-    </p>
-    <h2 id="process-h2" class="section__heading">
-      <T text={site.process.heading} />
-    </h2>
+  <div class="container process__grid">
+    <div class="process__sticky">
+      <h2 id="process-h2">
+        <T text={site.process.heading} />
+      </h2>
+    </div>
 
     <ol class="process__steps">
       {
         site.process.steps.map((step, i) => (
           <li class="process-step">
-            <span class="process-step__number" aria-hidden="true">
-              {String(i + 1).padStart(2, '0')}
+            <span class="process-step__num" aria-hidden="true">
+              {nums[i] ?? String(i + 1).padStart(2, '0')}
             </span>
-            <h3 class="process-step__name">
-              <T text={step.name} />
-            </h3>
-            <p class="process-step__what">
-              <T text={step.what} />
-            </p>
-            <p class="process-step__from-you">
-              <span class="process-step__from-you-label">Od Ciebie: </span>
-              <T text={step.fromYou} />
-            </p>
+            <div class="process-step__body">
+              <h3>
+                <T text={step.name} />
+              </h3>
+              <p class="process-step__what">
+                <T text={step.what} />
+              </p>
+              <p class="process-step__fromyou">
+                <strong>Czego potrzebuję od Ciebie:</strong>
+                <T text={step.fromYou} />
+              </p>
+            </div>
           </li>
         ))
       }

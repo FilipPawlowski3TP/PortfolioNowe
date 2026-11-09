@@ -1,59 +1,40 @@
 ---
-// Act II — Oferta ("Konstrukcja"). Hierarchy: one featured service + smaller cards.
+// VISUAL RESET v2 §5.4 — Oferta: numbered rows (01–04), no cards.
+// Hover (desktop): row shifts 12px, number and arrow turn --signal (Krok 3
+// adds the drawn line on enter; static here).
 import T from './T.astro';
 import { site } from '../data/site';
 
-const [featured, ...rest] = site.offer.services;
+const nums = ['01', '02', '03', '04', '05', '06'];
 ---
 
 <section class="section offer" id={site.offer.id} aria-labelledby="offer-h2">
-  <div class="offer__stage" data-anchor="offer" aria-hidden="true"></div>
   <div class="container">
-    <p class="section__label">
-      <T text={site.offer.label} />
-    </p>
-    <h2 id="offer-h2" class="section__heading">
-      <T text={site.offer.heading} />
-    </h2>
-    <p class="section__intro">
-      <T text={site.offer.intro} />
-    </p>
-
-    <div class="offer__grid">
-      <article class="offer-card offer-card--featured">
-        <h3 class="offer-card__name">
-          <T text={featured.name} />
-        </h3>
-        <p class="offer-card__what">
-          <T text={featured.what} />
-        </p>
-        <p class="offer-card__for">
-          <T text={featured.forWho} />
-        </p>
-        <a class="btn btn--secondary" href="#kontakt">
-          <T text={featured.cta ?? 'Napisz do mnie'} />
-        </a>
-      </article>
-
-      {
-        rest.map((service) => (
-          <article class="offer-card">
-            <h3 class="offer-card__name">
-              <T text={service.name} />
-            </h3>
-            <p class="offer-card__what">
-              <T text={service.what} />
-            </p>
-            <p class="offer-card__for">
-              <T text={service.forWho} />
-            </p>
-          </article>
-        ))
-      }
+    <div class="offer__head">
+      <h2 id="offer-h2">
+        <T text={site.offer.heading} />
+      </h2>
     </div>
 
-    <p class="offer__pricing">
-      <T text={site.offer.pricing} />
-    </p>
+    <ol class="offer__rows">
+      {
+        site.offer.services.map((service, i) => (
+          <li class="offer-row">
+            <span class="offer-row__num" aria-hidden="true">
+              {nums[i] ?? String(i + 1).padStart(2, '0')}
+            </span>
+            <h3 class="offer-row__name">
+              <T text={service.name} />
+            </h3>
+            <p class="offer-row__desc">
+              <T text={service.what} />
+            </p>
+            <span class="offer-row__arrow" aria-hidden="true">
+              →
+            </span>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 </section>

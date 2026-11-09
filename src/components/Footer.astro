@@ -1,39 +1,32 @@
 ---
-// Footer: service provider info (name + e-mail only — owner decision G0: no company data).
-import Wordmark from './Wordmark.astro';
+// VISUAL RESET v2 §5.8 — Stopka: service provider data (no company data —
+// owner decision G0, BRIEF §3) and legal links. The huge cropped wordmark is
+// optional Krok 5.
 import T from './T.astro';
 import { site } from '../data/site';
+
+const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="container site-footer__inner">
-    <div class="site-footer__brand">
-      <Wordmark />
-      <p class="site-footer__line">
+    <div>
+      <p>
+        <strong>{site.brand.person}</strong> — {site.brand.name}
+      </p>
+      <p>
         <T text={site.footer.line} />
       </p>
     </div>
-
-    <div class="site-footer__contact">
-      <p>{site.brand.person}</p>
-      <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
-    </div>
-
-    <nav class="site-footer__links" aria-label="Stopka">
-      <ul>
-        {
-          site.footer.links.map((link) => (
-            <li>
-              <a href={link.href}>
-                <T text={link.label} />
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+    <nav class="site-footer__links" aria-label="Prawne">
+      {
+        site.footer.links.map((link) => (
+          <a href={link.href}>
+            <T text={link.label} />
+          </a>
+        ))
+      }
     </nav>
-  </div>
-  <div class="container">
-    <p class="site-footer__copyright">{site.footer.copyright(new Date().getFullYear())}</p>
+    <p>{site.footer.copyright(year)}</p>
   </div>
 </footer>

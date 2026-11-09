@@ -15,7 +15,6 @@ export const site = {
   contact: {
     email: 'filip.pawlowski71@gmail.com',
     phone: null, // owner decision (G0): no public phone for now
-    responseNote: 'Odpowiadam zwykle w ciągu jednego dnia roboczego.', // TODO_UWAGA — confirm
   },
 
   legal: {
@@ -28,12 +27,12 @@ export const site = {
   domain: 'TODO_DOMENA',
 
   nav: {
+    // §5 VISUAL RESET: Realizacje · Oferta · Proces · FAQ + CTA "Napisz".
     links: [
+      { href: '#realizacje', label: 'Realizacje' },
       { href: '#oferta', label: 'Oferta' },
       { href: '#proces', label: 'Proces' },
-      { href: '#realizacje', label: 'Realizacje' },
       { href: '#faq', label: 'FAQ' },
-      { href: '#kontakt', label: 'Kontakt' },
     ],
     cta: { href: '#kontakt', label: 'Napisz' },
   },
@@ -47,14 +46,17 @@ export const site = {
   },
 
   hero: {
-    h1: 'Strony internetowe, po których klienci do Ciebie piszą',
+    // §7 VISUAL RESET — H1 in 3 editorial lines (§5.1).
+    h1: ['Strony internetowe,', 'po których klient', 'dzwoni.'],
     lead:
-      'Projektuję i buduję strony dla małych firm i usługodawców. Bez szablonów i technicznego żargonu — za to szybkie, czytelne i gotowe na Twoich klientów.',
-    ctas: [
-      { href: '#kontakt', label: 'Napisz do mnie', variant: 'primary' },
-      { href: '#realizacje', label: 'Zobacz realizację', variant: 'secondary' },
-    ],
+      'Projektuję i buduję strony dla małych firm i usługodawców: szybkie, czytelne, gotowe na telefon i na Google.',
+    // "Zadzwoń" (tel:) deliberately absent: no public phone (BRIEF §3, G0).
+    ctas: [{ href: '#kontakt', label: 'Napisz', variant: 'primary' }],
   },
+
+  // §5.3 — Zdanie przewodnie (words light up with scroll — Krok 3).
+  guidingSentence:
+    'Strona firmy ma jedno zadanie: sprawić, żeby klient w kilka sekund zrozumiał, czym się zajmujesz i jak się z Tobą skontaktować. Całą resztę, od animacji po kod, robię po to, żeby to zadanie wykonywała bez zgrzytów.',
 
   offer: {
     id: 'oferta',
@@ -118,20 +120,26 @@ export const site = {
 
   caseStudy: {
     id: 'realizacje',
-    label: 'Realizacja',
-    heading: 'Koparki Pawłowski — nowa strona firmy',
-    problem:
-      'Firma usługowa z Wrocławia potrzebowała strony, która jasno pokaże ofertę minikoparki i ułatwi klientom kontakt — także z telefonu, na budowie.',
-    work:
-      'Wielostronicowa strona z osobnymi podstronami usług, treściami pod wyszukiwarkę lokalną i prostym kontaktem. Zbudowana w Astro, hostowana na Cloudflare — bez ciężkich skryptów, bez plików cookies, z zabezpieczeniami (CSP, HSTS) w standardzie.',
-    results: [
-      'Wydajność i dostępność: 100/100 w Lighthouse — na telefonie i na komputerze.',
-      'LCP 0,44 s na komputerze i 1,54 s na telefonie.',
-      'Cały serwis to ok. 74 KB transferu na start i zero plików cookies.',
-      'Osobne strony usług, przygotowane pod wyszukiwarkę lokalną.',
+    heading: 'Koparki Pawłowski',
+    // §7: one sentence, based on the audit (docs/BRIEF.md §5).
+    description:
+      'Strona firmy świadczącej usługi minikoparką, zbudowana tak, żeby klient szybko znalazł ofertę i zadzwonił.',
+    // Facts only — every number is backed by docs/BRIEF.md §5.3–5.4.
+    blocks: [
+      {
+        name: 'Problem',
+        text: 'Firma usługowa z Wrocławia potrzebowała strony, która jasno pokaże ofertę minikoparki i ułatwi klientom kontakt — także z telefonu, na budowie.',
+      },
+      {
+        name: 'Co zrobiłem',
+        text: 'Wielostronicowa strona z osobnymi podstronami usług, treściami pod wyszukiwarkę lokalną i prostym kontaktem. Zbudowana w Astro, hostowana na Cloudflare — bez ciężkich skryptów, bez plików cookies, z zabezpieczeniami (CSP, HSTS) w standardzie.',
+      },
+      {
+        name: 'Technologia i wyniki',
+        text: '11 podstron, w tym 4 strony usług pod wyszukiwarkę lokalną. Lighthouse 100/100 (wydajność i dostępność) na telefonie i na komputerze. LCP 0,44 s na komputerze i 1,54 s na telefonie. Ok. 74 KB transferu na start i zero plików cookies.',
+      },
     ],
     cta: { href: 'https://koparkapawlowski.pl/', label: 'Zobacz stronę na żywo', external: true },
-    nextSlot: 'Kolejne realizacje wkrótce.',
   },
 
   standard: {
@@ -197,11 +205,10 @@ export const site = {
 
   contactSection: {
     id: 'kontakt',
-    label: 'Kontakt',
-    heading: 'Zróbmy pierwszy krok',
-    lead:
-      'Opisz krótko swoją firmę i czego potrzebujesz. Odpowiem konkretnie: co proponuję, ile to zajmie i ile będzie kosztować.',
-    emailLabel: 'Albo napisz bezpośrednio',
+    // §7 VISUAL RESET.
+    heading: 'Porozmawiajmy o Twojej stronie.',
+    lead: 'Napisz, czym się zajmujesz i czego potrzebujesz. Odpiszę z propozycją kolejnego kroku.',
+    emailLabel: 'Napisz bezpośrednio',
     form: {
       name: { label: 'Imię', autocomplete: 'name', required: true },
       email: { label: 'E-mail', autocomplete: 'email', required: true },

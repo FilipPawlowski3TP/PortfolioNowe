@@ -1,78 +1,36 @@
-/* Design tokens — docs/DESIGN_PLAN.md section 1 (Phase 2 skeleton) */
+/* VISUAL RESET v2 (§4) — paper & ink. One accent: --signal.
+   The new tokens override the legacy ones where names collide. */
 :root {
-  color-scheme: dark;
+  --paper: #f1f1ed;
+  --ink: #101114;
+  --ink-70: #3c3f46;
+  --mute: #5b5e66;
+  --line: rgba(16, 17, 20, 0.14);
+  --signal: #2a3bff;
+  color-scheme: light;
 
-  /* Palette: "night -> dawn" narrative */
-  --c-night-950: #070b18;
-  --c-night-900: #0b1226;
-  --c-night-700: #18223d;
-  --c-dawn-400: #ff8a5b;
-  --c-dawn-200: #ffc9a3;
-  --c-ice-300: #8fd3ff;
-  --c-ink-100: #f2f0ea;
-  --c-ink-300: #a9b1c6;
+  /* Typography (families applied literally in base.css; the local
+     "Pawłowski Display/Text" stay as fallback from the Astro Fonts API) */
+  --font-display: 'Bricolage Grotesque Variable', 'Pawłowski Display', system-ui, sans-serif;
+  --font-text: 'Instrument Sans Variable', 'Pawłowski Text', system-ui, sans-serif;
+  --font-fallback: system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  /* Semantic */
-  --c-bg: var(--c-night-950);
-  --c-surface: var(--c-night-900);
-  --c-surface-strong: var(--c-night-700);
-  --c-text: var(--c-ink-100);
-  --c-text-muted: var(--c-ink-300);
-  --c-accent: var(--c-dawn-400);
-  --c-accent-soft: var(--c-dawn-200);
-  --c-structure: var(--c-ice-300);
-  --c-focus: var(--c-ice-300);
+  /* Type scale (§4) */
+  --h1: clamp(52px, 8vw, 128px);
+  --h2: clamp(40px, 5.2vw, 88px);
+  --text: 1.125rem; /* 18px */
+  --text-lg: 1.25rem; /* 20px */
+  --caption: 0.875rem; /* 14px */
 
-  /* Buttons: dark text on dawn accent (WCAG AA: 8.45:1) — never ink on dawn */
-  --c-on-accent: var(--c-night-950);
+  /* Layout (§4): container 1440, side padding, section rhythm, header */
+  --container: 1440px;
+  --pad-x: clamp(20px, 5.5vw, 80px);
+  --sp-section: clamp(96px, 14vh, 200px);
+  --header-h: 72px;
+  --radius-pill: 999px;
 
-  /* Typography (Astro Fonts API injects --font-display / --font-text) */
-  --font-fallback: system-ui, sans-serif;
-  --fs-hero: clamp(2.6rem, 1.2rem + 6vw, 6.5rem);
-  --fs-h2: clamp(2rem, 1.2rem + 3vw, 3.5rem);
-  --fs-h3: clamp(1.35rem, 1.1rem + 1vw, 1.75rem);
-  --fs-text: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
-  --fs-small: 0.875rem;
-  --lh-tight: 1.08;
-  --lh-snug: 1.25;
-  --lh-body: 1.6;
-
-  /* Spacing (4px scale) */
-  --sp-1: 0.25rem;
-  --sp-2: 0.5rem;
-  --sp-3: 0.75rem;
-  --sp-4: 1rem;
-  --sp-6: 1.5rem;
-  --sp-8: 2rem;
-  --sp-12: 3rem;
-  --sp-16: 4rem;
-  --sp-section: clamp(4rem, 10vh, 8.75rem);
-
-  /* Shape & lines */
-  --radius: 2px;
-  --line: 1px solid color-mix(in oklab, var(--c-ice-300) 22%, transparent);
-  --line-strong: 1px solid color-mix(in oklab, var(--c-ice-300) 45%, transparent);
-
-  /* Layout */
-  --w-content: 72rem;
-  --w-text: 40rem;
-  --header-h: 4.5rem;
-
-  /* Motion tokens (GSAP equivalents: power3.out / expo.out / power2.inOut) */
-  --e-out: cubic-bezier(0.22, 1, 0.36, 1);
-  --e-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --e-inout: cubic-bezier(0.65, 0, 0.35, 1);
-  --d-fast: 150ms;
-  --d-base: 300ms;
-  --d-slow: 600ms;
-  --d-scene: 1200ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root {
-    --d-fast: 100ms;
-    --d-base: 150ms;
-    --d-slow: 150ms;
-    --d-scene: 150ms;
-  }
+  /* Motion tokens (§4): expo.out entrances, power3.inOut transitions */
+  --t-micro: 0.2s;
+  --t-mid: 0.5s;
+  --t-heading: 0.9s;
 }

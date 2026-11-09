@@ -1,80 +1,39 @@
 ---
-// Act IV — Realizacje. Facts come only from saved measurements (PATCH v1.1 §1.5):
-// 100/100 + LCP -> docs/audit/lh-{desktop,mobile}.json (koparkapawlowski.pl),
-// 74 KB + zero cookies -> docs/audit/case-study-audit.json.
-// Main illustration = the 3D LayerStack anchored on .case-study__stage; the flat
-// 2D screenshots stay as the Tier 0 / no-WebGL fallback only.
+// VISUAL RESET v2 §5.2 — Realizacja (fakty): two columns, facts only.
+// Every number in the blocks is backed by docs/BRIEF.md §5.3–5.4.
 import T from './T.astro';
 import { site } from '../data/site';
+
+const c = site.caseStudy;
 ---
 
-<section class="section case-study" id={site.caseStudy.id} aria-labelledby="case-h2">
-  <div class="container">
-    <p class="section__label">
-      <T text={site.caseStudy.label} />
-    </p>
-    <h2 id="case-h2" class="section__heading">
-      <T text={site.caseStudy.heading} />
-    </h2>
+<section class="section realizacja" id={c.id} aria-labelledby="realizacja-h2">
+  <div class="container realizacja__grid">
+    <div class="realizacja__intro">
+      <h2 id="realizacja-h2">
+        <T text={c.heading} />
+      </h2>
+      <p>
+        <T text={c.description} />
+      </p>
+      <a class="btn btn--secondary realizacja__cta" href={c.cta.href} target="_blank" rel="noopener">
+        <T text={c.cta.label} />
+      </a>
+    </div>
 
-    <div class="case-study__grid">
-      <div class="case-study__visual">
-        <div class="case-study__stage" data-anchor="case" aria-hidden="true"></div>
-
-        <div class="case-study__fallback">
-          <figure class="device-frame device-frame--laptop">
-            <img
-              src="/media/case-desktop-hero.png"
-              alt="Strona firmy Koparki Pawłowski na ekranie komputera — sekcja główna z nagłówkiem i przyciskami kontaktu."
-              width="1440"
-              height="900"
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
-          <figure class="device-frame device-frame--phone">
-            <img
-              src="/media/case-mobile-hero.png"
-              alt="Ta sama strona na ekranie telefonu — wersja mobilna sekcji głównej."
-              width="390"
-              height="844"
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
-        </div>
-      </div>
-
-      <div class="case-study__story">
-        <h3 class="case-study__step">Problem</h3>
-        <p>
-          <T text={site.caseStudy.problem} />
-        </p>
-
-        <h3 class="case-study__step">Co zrobiono</h3>
-        <p>
-          <T text={site.caseStudy.work} />
-        </p>
-
-        <h3 class="case-study__step">Efekt</h3>
-        <ul class="case-study__results">
-          {
-            site.caseStudy.results.map((result) => (
-              <li>
-                <T text={result} />
-              </li>
-            ))
-          }
-        </ul>
-
-        <a class="btn btn--primary" href={site.caseStudy.cta.href} target="_blank" rel="noopener">
-          <T text={site.caseStudy.cta.label} />
-        </a>
-
-        <p class="case-study__next">
-          <T text={site.caseStudy.nextSlot} />
-        </p>
-      </div>
+    <div class="realizacja__facts">
+      {
+        c.blocks.map((block) => (
+          <div class="fact-block">
+            <h3>
+              <T text={block.name} />
+            </h3>
+            <p>
+              <T text={block.text} />
+            </p>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
