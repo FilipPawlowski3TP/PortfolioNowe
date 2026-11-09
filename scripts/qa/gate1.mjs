@@ -29,7 +29,7 @@ async function mosaic(browser, shots, tag) {
     })
     .join('');
   await p.setContent(`<style>
-    body { margin: 0; background: #222; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 8px; font: 14px sans-serif; color: #fff; }
+    body { margin: 0; background: #222; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 8px; padding: 8px; font: 14px sans-serif; color: #fff; }
     figure { margin: 0; } figcaption { padding: 4px; } img { width: 100%; display: block; border: 1px solid #444; }
   </style>${cells}`);
   await p.waitForTimeout(600);
