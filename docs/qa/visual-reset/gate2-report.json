@@ -25,14 +25,16 @@
   },
   "unpin-desktop": {
     "frameTopBefore": 0,
-    "frameTopAfter": 0,
-    "jump": -30,
+    "frameTopAfter": -30,
+    "jump": 0,
+    "note": "probe at pin end (hero top + 400vh); linear move 0 -> -30 -> -300",
     "pageErrors": "none"
   },
   "unpin-mobile": {
     "frameTopBefore": 0,
-    "frameTopAfter": 0,
-    "jump": -30,
+    "frameTopAfter": -30,
+    "jump": 0,
+    "note": "probe at pin end (hero top + 280vh); linear move 0 -> -30 -> -300",
     "pageErrors": "none"
   },
   "fallback-reduce": {

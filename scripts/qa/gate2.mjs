@@ -78,7 +78,10 @@ const run = async () => {
     await mosaic(browser, shots, dev.tag);
 
     // unpin continuity: hero must not jump at the pin end
-    const end = dev.distVh * (await page.evaluate(() => innerHeight)) / 100;
+    const end = await page.evaluate((vh) => {
+      const hero = document.querySelector('[data-hero]');
+      return hero.getBoundingClientRect().top + scrollY + (vh * innerHeight) / 100;
+    }, dev.distVh);
     const topAt = async (y) => {
       await page.evaluate((v) => window.scrollTo(0, v), y);
       await page.waitForTimeout(450);
