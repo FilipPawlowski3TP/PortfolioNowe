@@ -50,8 +50,10 @@ import { site } from '../data/site';
   </div>
 
   <!-- The window (§6): full-viewport frame, transformed onto the card at rest.
-       Hidden unless html.motion-on (live pinned sequence). -->
-  <div class="hero__frame" data-frame>
+       Hidden unless html.motion-on (live pinned sequence). The wrap is what
+       the intro slides (the frame's own transform belongs to the sequence). -->
+  <div class="hero__frame-wrap" data-frame-wrap>
+    <div class="hero__frame" data-frame>
     <img
       class="hero__frame-img"
       data-frame-img
@@ -67,6 +69,7 @@ import { site } from '../data/site';
     </div>
     <div class="hero__frame-progress" data-frame-progress aria-hidden="true">
       <span data-frame-progress-bar></span>
+    </div>
     </div>
   </div>
 </section>

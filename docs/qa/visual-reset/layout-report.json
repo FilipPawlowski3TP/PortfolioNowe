@@ -2,21 +2,21 @@
   "widths": {
     "360": {
       "hScroll": 0,
-      "pairs": 10186,
+      "pairs": 9869,
       "overlaps": 0,
       "outside": 0,
       "detail": []
     },
     "390": {
       "hScroll": 0,
-      "pairs": 10186,
+      "pairs": 9869,
       "overlaps": 0,
       "outside": 0,
       "detail": []
     },
     "768": {
       "hScroll": 0,
-      "pairs": 10186,
+      "pairs": 9869,
       "overlaps": 0,
       "outside": 0,
       "detail": []
@@ -44,7 +44,7 @@
     }
   },
   "totals": {
-    "pairs": 65070,
+    "pairs": 64119,
     "overlaps": 0,
     "outside": 0,
     "hScroll": 0

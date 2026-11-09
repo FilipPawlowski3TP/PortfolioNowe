@@ -127,8 +127,18 @@
 
 /* The window: full-viewport frame over the hero, scaled onto the card by the
    pinned sequence (hero-window.ts). Static state: display none. */
-.hero__frame {
+.hero__frame-wrap {
   display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 5;
+}
+
+.hero__frame {
+  display: block;
   position: absolute;
   left: 0;
   top: 0;
@@ -139,7 +149,6 @@
   background: #fff;
   border: 1px solid var(--line);
   border-radius: 16px;
-  z-index: 5;
 }
 
 .hero__frame-img {

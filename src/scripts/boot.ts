@@ -7,6 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initSmoothScroll, initAnchors, initScrollspy } from './motion/smooth-scroll';
 import { initMenu } from './motion/menu';
 import { initHeroWindow } from './motion/hero-window';
+import { initClock, initCopyEmail, initAccordion, initHeaderHide } from './motion/micro';
+import { initIntro, initHeadingReveals, initGuidingReveal } from './motion/reveals';
 
 declare global {
   interface Window {
@@ -15,8 +17,10 @@ declare global {
 }
 
 export function initMotion(): void {
-  // Wayfinding is not motion — works in every mode.
+  // Wayfinding and content feedback are not motion — work in every mode.
   initScrollspy();
+  initClock();
+  initCopyEmail();
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce) {
@@ -28,6 +32,11 @@ export function initMotion(): void {
   initAnchors(lenis);
   initMenu(lenis);
   initHeroWindow();
+  initAccordion();
+  initHeaderHide();
+  initIntro();
+  initHeadingReveals();
+  initGuidingReveal();
 
   window.__MOTION_READY__ = true;
 

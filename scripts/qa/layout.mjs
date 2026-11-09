@@ -67,6 +67,16 @@ const CHECK = () => {
     return x * y;
   };
 
+  // Overlaps only count where the user can see them: clip boxes to the
+  // viewport (the hidden header parked above it must not "collide" with
+  // content passing by off-screen).
+  const vp = (box) => ({
+    left: Math.max(box.left, 0),
+    right: Math.min(box.right, innerWidth),
+    top: Math.max(box.top, 0),
+    bottom: Math.min(box.bottom, innerHeight),
+  });
+
   for (let i = 0; i < els.length; i++) {
     const a = els[i];
     const ra = clipped(a);
@@ -78,7 +88,7 @@ const CHECK = () => {
       const b = els[j];
       if (a.contains(b) || b.contains(a)) continue; // ancestor pairs excluded
       pairs++;
-      const area = inter(ra, clipped(b));
+      const area = inter(vp(ra), vp(clipped(b)));
       if (area > 2) overlaps.push(`${a.tagName}.${a.className || '-'}/${b.tagName}.${b.className || '-'}:${area.toFixed(0)}`);
     }
     // text over the realization thumbnail/window (the caption pill is the
@@ -88,7 +98,7 @@ const CHECK = () => {
       if (a.tagName === 'FIGCAPTION') continue;
       if (a.closest('[data-frame-pill]')) continue;
       pairs++;
-      const area = inter(ra, clipped(t));
+      const area = inter(vp(ra), vp(clipped(t)));
       if (area > 2) overlaps.push(`${a.tagName}.${a.className || '-'}/IMG:${area.toFixed(0)}`);
     }
   }
@@ -115,7 +125,7 @@ const run = async () => {
     const results = [];
     for (const f of SCROLLS) {
       await page.evaluate((v) => window.scrollTo(0, v * (document.documentElement.scrollHeight - window.innerHeight)), f);
-      await page.waitForTimeout(250);
+      await page.waitForTimeout(450);
       results.push(await page.evaluate(CHECK));
     }
 

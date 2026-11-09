@@ -106,3 +106,12 @@ Licznik zużycia (Krok 0/1): agent nie ma dostępu do licznika zużycia UI — d
 - Fallbacki: html.motion-on tylko przy pełnej inicjalizacji; bez JS / reduce / błąd boot = miniatura w hero + obraz pierwszego ekranu w Realizacji (§6).
 - Naprawiony capture-realization.mjs: przycięcie clip zamiast skalowania (było 1413×6400 — zdeformowane) → 2880×6300 (342 KB) i 780×5600 (162 KB), wymiary zgodne z oczekiwanymi; budżety §6 ✓.
 - layout.mjs v2: recty przycinane do klipu overflow:hidden (obraz okna nie „zachodzi" wirtualnie) + efektywna opacity (dzieci wygaszanego kontenera niewidoczne). PASS — 65 070 par, 0 kolizji, 0 poza ekranem, 0 hScroll.
+
+### Krok 3 — Reszta ruchu (intro, mikrointerakcje)
+- API SplitText zweryfikowane w typach paczki gsap (`mask: "lines"`, `aria: "auto"`, `autoSplit`, `onSplit`) wg §0.5.
+- Intro ≤1.2 s (`reveals.ts`): linie H1 z maski (SplitText), lead + CTA, miniatura (y: 24 px + opacity) — miniaturą w trybie motion jest `[data-frame-wrap]` (okno), żeby nie kolidować z rect() sekwencji pinned.
+- Nagłówki sekcji: maska linii przy wejściu w viewport (once). Zdanie przewodnie: wiersze y:32 + opacity, stagger 50 ms.
+- Mikro (`micro.ts`): zegar „Wrocław · HH:MM · dzień" (Europe/Warsaw, pl-PL, co 30 s; ukryty ≤900 px — przelewał nagłówek), „Kopiuj e-mail" → „Skopiowano" 1,5 s (aria-live), płynne rozwinięcie FAQ + obrót plusa 45°, nagłówek chowa się w dół/wraca w górę (hysteresis 8 px na dyganie Lenisa).
+- Oferta (CSS `interactions.css`): przesunięcie 12 px, przyciemnienie tła, strzałka, rysowana linia SVG (stroke-dashoffset) — hover/focus-within, wyłączane przy reduced-motion.
+- Odstępstwo od §6 (właściwości animacji): wysokość akordeonu (wymagane do „płynnego rozwinięcia" §8; transform nie przesuwa sąsiednich wierszy). Reszta na transform/opacity/SVG stroke/kolorze.
+- Dowody (`gate3-report.json`, mozaika `mosaic-k3.png`): zegar „Wrocław · 04:53 · poniedziałek", hover transform 12 px + strzałka 1 + dashoffset 0, FAQ open + plus 45°, „Skopiowano", is-hidden ✓, 0 błędów strony; layout.mjs PASS — 64 119 par, 0 kolizji, 0 poza ekranem, 0 hScroll (metodologia v3: recty przycinane do klipu i viewportu, efektywna opacity); fallbacky reduce/no-JS ✓.
