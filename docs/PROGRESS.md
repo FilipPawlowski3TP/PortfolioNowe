@@ -115,3 +115,11 @@ Licznik zużycia (Krok 0/1): agent nie ma dostępu do licznika zużycia UI — d
 - Oferta (CSS `interactions.css`): przesunięcie 12 px, przyciemnienie tła, strzałka, rysowana linia SVG (stroke-dashoffset) — hover/focus-within, wyłączane przy reduced-motion.
 - Odstępstwo od §6 (właściwości animacji): wysokość akordeonu (wymagane do „płynnego rozwinięcia" §8; transform nie przesuwa sąsiednich wierszy). Reszta na transform/opacity/SVG stroke/kolorze.
 - Dowody (`gate3-report.json`, mozaika `mosaic-k3.png`): zegar „Wrocław · 04:53 · poniedziałek", hover transform 12 px + strzałka 1 + dashoffset 0, FAQ open + plus 45°, „Skopiowano", is-hidden ✓, 0 błędów strony; layout.mjs PASS — 64 119 par, 0 kolizji, 0 poza ekranem, 0 hScroll (metodologia v3: recty przycinane do klipu i viewportu, efektywna opacity); fallbacky reduce/no-JS ✓.
+
+### Krok 4 — QA i przegląd (§11)
+- layout.mjs PASS — 64 119 par, 0 kolizji, 0 poza ekranem, 0 hScroll (360–1920).
+- axe serious/critical 0 (desktop + mobile) — po naprawie `aria-prohibited-attr` (SplitText `aria:'auto'` doklejał aria-label do `<p>` w zdaniu przewodnim → `aria:'none'`; na h1/h2 label jest dozwolony i zostaje).
+- Lighthouse (Edge, CHROME_PATH): mobile 98/100/100/100 (TBT 20 ms, LCP 2,4 s ≤ 2,5, CLS 0,001); desktop 100/100/100/100 (TBT 0 ms, LCP 0,5 s, CLS 0,003).
+- Fokus: 2px solid #2A3BFF ✓; 0 błędów konsoli; fallbacky reduce/no-JS ✓ (gate2/gate3).
+- Checklista anty-slop §11: ✓ brak gradientów/poświat/glassmorphism (grep 0) ✓ brak wersalików/etykiet (text-transform 0) ✓ brak opinii/nagród/liczb bez pokrycia (liczby tylko z BRIEF §5) ✓ brak kart z ikonami (numerowane wiersze; jedyne SVG = rysowana linia) ✓ każdy ruch ma cel ✓ jeden akcent --signal ✓ hero bez kolizji (test) ✓ bez JS i reduced-motion działa.
+- Uwaga metodyczna testu układu (v3): recty przycinane do klipu overflow i do viewportu; kolizje liczone tylko w widocznym obszarze; efektywna opacity (dzieci wygaszanych kontenerów).

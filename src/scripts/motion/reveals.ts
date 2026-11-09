@@ -58,7 +58,7 @@ export function initGuidingReveal(): void {
   if (!el) return;
   const split = SplitText.create(el, {
     type: 'lines',
-    aria: 'auto',
+    aria: 'none', // aria:'auto' would put aria-label on the <p> (prohibited on generic role; axe)
     linesClass: 'split-line',
   });
   gsap.from(split.lines, {
