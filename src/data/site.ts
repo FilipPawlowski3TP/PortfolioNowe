@@ -118,29 +118,11 @@ export const site = {
     ],
   },
 
-  caseStudy: {
-    id: 'realizacje',
-    heading: 'Koparki Pawłowski',
-    // §7: one sentence, based on the audit (docs/BRIEF.md §5).
-    description:
-      'Strona firmy świadczącej usługi minikoparką, zbudowana tak, żeby klient szybko znalazł ofertę i zadzwonił.',
-    // Facts only — every number is backed by docs/BRIEF.md §5.3–5.4.
-    blocks: [
-      {
-        name: 'Problem',
-        text: 'Firma usługowa z Wrocławia potrzebowała strony, która jasno pokaże ofertę minikoparki i ułatwi klientom kontakt — także z telefonu, na budowie.',
-      },
-      {
-        name: 'Co zrobiłem',
-        text: 'Wielostronicowa strona z osobnymi podstronami usług, treściami pod wyszukiwarkę lokalną i prostym kontaktem. Zbudowana w Astro, hostowana na Cloudflare — bez ciężkich skryptów, bez plików cookies, z zabezpieczeniami (CSP, HSTS) w standardzie.',
-      },
-      {
-        name: 'Technologia i wyniki',
-        text: '11 podstron, w tym 4 strony usług pod wyszukiwarkę lokalną. Lighthouse 100/100 (wydajność i dostępność) na telefonie i na komputerze. LCP 0,44 s na komputerze i 1,54 s na telefonie. Ok. 74 KB transferu na start i zero plików cookies.',
-      },
-    ],
-    cta: { href: 'https://koparkapawlowski.pl/', label: 'Zobacz stronę na żywo', external: true },
-  },
+  // §6 (VISUAL PATCH v3): projects list lives in `projects` below; the old
+  // case-study facts block (Problem / Co zrobiłem / Technologia i wyniki) is
+  // removed per patch §1.
+
+  projects: [],
 
   standard: {
     id: 'standard',

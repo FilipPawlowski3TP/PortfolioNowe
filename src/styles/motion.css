@@ -1,62 +1,9 @@
-/* VISUAL RESET v2 — motion states (§6).
-   Motion is opt-in: the pinned sequence marks html.motion-on when live.
-   Static default = thumbnail in hero + first-screen image in Realizacja. */
+/* VISUAL PATCH v3 — motion states.
+   The old hero-window / realization-fallback states are removed (patch §1);
+   §4–§5 motion lands in Krok 2. */
 
 /* Watchdog fallback: if the motion boot fails, force everything visible. */
 html.reveal-all .split-line {
   transform: none !important;
   opacity: 1 !important;
-}
-
-html.reveal-all .hero__frame-wrap {
-  display: none !important;
-}
-
-html.reveal-all .hero__shot-frame img {
-  visibility: visible !important;
-}
-
-/* The frame lives inside the wrap (hidden with it); only the pill and the
-   progress bar are hidden on their own here. */
-.hero__frame-pill,
-.hero__frame-progress {
-  display: none;
-}
-
-html.motion-on .hero__frame-wrap {
-  display: block;
-}
-
-html.motion-on .hero__frame-pill,
-html.motion-on .hero__frame-progress {
-  display: block;
-}
-
-/* The card keeps reserving space; the frame covers it exactly. The placeholder
-   box itself is invisible in motion mode (the frame is the visual). */
-html.motion-on .hero__shot-frame img {
-  visibility: hidden;
-}
-
-html.motion-on .hero__shot-frame {
-  border-color: transparent;
-  background: transparent;
-}
-
-/* §6 reduced-motion rule: the Realizacja section shows a regular first-screen
-   image whenever the pinned sequence is not live (no-JS, reduce, boot fail). */
-.realizacja__fallback {
-  display: none;
-}
-
-html:not(.motion-on) .realizacja__fallback {
-  display: block;
-  margin-top: clamp(24px, 4vh, 40px);
-}
-
-.realizacja__fallback img {
-  width: 100%;
-  height: auto;
-  border: 1px solid var(--line);
-  border-radius: 16px;
 }

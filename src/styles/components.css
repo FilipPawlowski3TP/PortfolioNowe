@@ -390,33 +390,6 @@
   gap: 1.5rem;
 }
 
-/* ---------- Realizacja facts blocks ---------- */
-.fact-block {
-  padding-block: clamp(1.5rem, 3vh, 2.25rem);
-  border-bottom: 1px solid var(--line);
-  display: flex;
-  flex-direction: column;
-  gap: 0.625rem;
-}
-
-.fact-block:first-child {
-  border-top: 1px solid var(--line);
-}
-
-.fact-block h3 {
-  font-size: 1.125rem;
-  letter-spacing: -0.01em;
-}
-
-.fact-block p {
-  color: var(--ink-70);
-}
-
-.realizacja__cta {
-  margin-top: 1.5rem;
-  align-self: start;
-}
-
 @media (max-width: 900px) {
   .offer-row {
     grid-template-columns: 3rem 1fr;

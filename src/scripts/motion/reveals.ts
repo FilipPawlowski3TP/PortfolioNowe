@@ -15,8 +15,6 @@ export function initIntro(): void {
   const h1 = document.querySelector<HTMLElement>('.hero__h1');
   const lead = document.querySelector<HTMLElement>('.hero__lead');
   const ctas = document.querySelector<HTMLElement>('.hero__ctas');
-  const shot = document.querySelector<HTMLElement>('[data-frame-wrap]');
-  const caption = document.querySelector<HTMLElement>('.hero__shot .caption');
   if (!h1) return;
 
   const split = SplitText.create(h1, {
@@ -27,9 +25,11 @@ export function initIntro(): void {
   });
 
   const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
-  tl.from(split.lines, { yPercent: 110, duration: 0.7, stagger: 0.08 }, 0)
-    .from([lead, ctas].filter(Boolean), { y: 16, opacity: 0, duration: 0.35, stagger: 0.08 }, 0.35)
-    .from([shot, caption].filter(Boolean), { y: 24, opacity: 0, duration: 0.5 }, 0.5);
+  tl.from(split.lines, { yPercent: 110, duration: 0.7, stagger: 0.08 }, 0).from(
+    [lead, ctas].filter(Boolean),
+    { y: 16, opacity: 0, duration: 0.35, stagger: 0.08 },
+    0.35,
+  );
 }
 
 // §6: "Wejście nagłówków sekcji maską linii przy wejściu w viewport".
