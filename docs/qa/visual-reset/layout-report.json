@@ -2,51 +2,82 @@
   "widths": {
     "360": {
       "hScroll": 0,
-      "pairs": 9869,
+      "pairs": 9760,
       "overlaps": 0,
       "outside": 0,
+      "wordsBad": [],
+      "wordmarkOver": 0,
+      "skipVisible": false,
       "detail": []
     },
     "390": {
       "hScroll": 0,
-      "pairs": 9869,
+      "pairs": 9760,
       "overlaps": 0,
       "outside": 0,
+      "wordsBad": [],
+      "wordmarkOver": 0,
+      "skipVisible": false,
       "detail": []
     },
     "768": {
       "hScroll": 0,
-      "pairs": 9869,
+      "pairs": 9760,
       "overlaps": 0,
       "outside": 0,
+      "wordsBad": [],
+      "wordmarkOver": 0,
+      "skipVisible": false,
       "detail": []
     },
     "1280": {
       "hScroll": 0,
-      "pairs": 11504,
+      "pairs": 11385,
       "overlaps": 0,
       "outside": 0,
+      "wordsBad": [],
+      "wordmarkOver": 0,
+      "skipVisible": false,
       "detail": []
     },
     "1440": {
       "hScroll": 0,
-      "pairs": 11504,
+      "pairs": 11385,
       "overlaps": 0,
       "outside": 0,
+      "wordsBad": [],
+      "wordmarkOver": 0,
+      "skipVisible": false,
       "detail": []
     },
     "1920": {
       "hScroll": 0,
-      "pairs": 11504,
+      "pairs": 11385,
       "overlaps": 0,
       "outside": 0,
+      "wordsBad": [],
+      "wordmarkOver": 0,
+      "skipVisible": false,
+      "detail": []
+    },
+    "2560": {
+      "hScroll": 0,
+      "pairs": 11385,
+      "overlaps": 0,
+      "outside": 0,
+      "wordsBad": [],
+      "wordmarkOver": 0,
+      "skipVisible": false,
       "detail": []
     }
   },
   "totals": {
-    "pairs": 64119,
+    "pairs": 74820,
     "overlaps": 0,
     "outside": 0,
-    "hScroll": 0
+    "hScroll": 0,
+    "wordsBad": 0,
+    "wordmarkOver": 0,
+    "skipVisible": false
   }
 }

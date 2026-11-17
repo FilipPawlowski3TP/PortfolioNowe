@@ -1,35 +1,48 @@
 ---
-// VISUAL PATCH v3 §1 (Krok 0): the Koparki hero spotlight (thumbnail, expanding
-// window, screenshot scroll, pill) is removed; §3 rebuilds the hero in Krok 1.
+// VISUAL PATCH v3 §3 — Hero (D1): 3-line H1 in one h1 (each line a block span
+// with data-hero-line for the §4 kinetic pass), sub (lead + "Zadzwoń"/"Napisz"),
+// foot row: latest realization (left) and scroll hint (right).
 import T from './T.astro';
 import { site } from '../data/site';
+
+const project = site.projects[0];
 ---
 
 <section class="hero" id="hero" data-hero>
   <div class="container hero__inner">
-    <h1 class="hero__h1" data-hero-text>
+    <h1 class="hero__h1">
       {
         site.hero.h1.map((line) => (
-          <span class="hero__line">
+          <span class="hero__line" data-hero-line>
             <T text={line} />
           </span>
         ))
       }
     </h1>
 
-    <div class="hero__text" data-hero-text>
+    <div class="hero__sub" data-hero-sub>
       <p class="hero__lead">
         <T text={site.hero.lead} />
       </p>
       <div class="hero__ctas">
         {
           site.hero.ctas.map((cta) => (
-            <a class={`btn btn--${cta.variant}`} href={cta.href}>
+            <a class={`btn btn--${cta.variant === 'outline' ? 'secondary' : 'primary'}`} href={cta.href}>
               <T text={cta.label} />
             </a>
           ))
         }
       </div>
+    </div>
+
+    <div class="hero__foot">
+      <p class="hero__latest">
+        Najnowsza realizacja:
+        <a href="#realizacje">
+          <T text={project.name} /> ↗
+        </a>
+      </p>
+      <p class="hero__scroll">Przewiń ↓</p>
     </div>
   </div>
 </section>

@@ -15,7 +15,12 @@
 }
 
 /* The live clock is a desktop detail (§5.4) — it would overflow the header
-   row on phones. */
+   row on phones. §2.3: "Wrocław, 20:36", --mute, 15px. */
+.site-header__clock {
+  font-size: 15px;
+  color: var(--mute);
+}
+
 @media (max-width: 900px) {
   .site-header__clock {
     display: none;
@@ -62,9 +67,10 @@
     background-color: rgba(16, 17, 20, 0.03);
   }
 
-  .offer-row:hover .offer-row__num,
-  .offer-row:hover .offer-row__name {
-    transform: translateX(12px);
+  /* §2.6 patch v3: no 12px shift — nothing may move outside the row.
+     Feedback = colour + underline + arrow + drawn line (§7). */
+  .offer-row:hover .offer-row__num {
+    color: var(--signal);
   }
 
   .offer-row:hover .offer-row__arrow {
@@ -82,9 +88,8 @@
   background-color: rgba(16, 17, 20, 0.03);
 }
 
-.offer-row:focus-within .offer-row__num,
-.offer-row:focus-within .offer-row__name {
-  transform: translateX(12px);
+.offer-row:focus-within .offer-row__num {
+  color: var(--signal);
 }
 
 .offer-row:focus-within .offer-row__arrow {
@@ -104,13 +109,6 @@
   .offer-row__line line,
   .site-header {
     transition: none;
-  }
-
-  .offer-row:hover .offer-row__num,
-  .offer-row:hover .offer-row__name,
-  .offer-row:focus-within .offer-row__num,
-  .offer-row:focus-within .offer-row__name {
-    transform: none;
   }
 
   .offer-row__line line {

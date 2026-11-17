@@ -158,17 +158,19 @@
 }
 
 @media (hover: hover) {
-  .offer-row:hover {
-    transform: translateX(12px);
-  }
-
   .offer-row:hover .offer-row__num,
   .offer-row:hover .offer-row__arrow {
     color: var(--signal);
   }
 
-  .offer-row:hover .offer-row__arrow {
-    transform: translateX(4px);
+  /* §7: hover must change more than colour — name underlines, the arrow
+     slides into place (from -8px to 0, never past the row edge). §2.6: no
+     row-level transforms — nothing may shift outside the row. */
+  .offer-row:hover .offer-row__name {
+    color: var(--signal);
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+    text-decoration-thickness: 2px;
   }
 }
 
@@ -204,7 +206,8 @@
 }
 
 .process-step__fromyou {
-  font-size: var(--caption);
+  /* §2.4 patch v3: "Czego potrzebuję od Ciebie" >= 16px */
+  font-size: 1rem;
   color: var(--mute);
   border-left: 2px solid var(--line);
   padding-left: 0.875rem;
@@ -356,8 +359,9 @@
   color: var(--mute);
 }
 
-/* Krok 5 (§8): the huge cropped wordmark — cut at both sides and at the
-   baseline. Decorative sign-off (aria-hidden; the name is in the content). */
+/* Krok 5 (§8): the huge wordmark — §2.2 fix: it must FIT the window width
+   (nowrap, vw-sized), cropped at the BOTTOM only. Decorative sign-off
+   (aria-hidden; the name is in the content). */
 .site-footer__giant {
   overflow: hidden;
   margin-top: clamp(32px, 6vh, 72px);
@@ -369,7 +373,7 @@
   display: block;
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: clamp(4.5rem, 17.5vw, 20rem);
+  font-size: clamp(2.5rem, 11vw, 16rem);
   letter-spacing: -0.05em;
   text-align: center;
   white-space: nowrap;
@@ -388,6 +392,251 @@
 .site-footer__links {
   display: flex;
   gap: 1.5rem;
+}
+
+/* ---------- Utilities (§2.1, §5) ---------- */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* §2.1: skip link hidden until keyboard focus. */
+.skip-link {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link:focus-visible {
+  position: fixed;
+  width: auto;
+  height: auto;
+  clip: auto;
+  overflow: visible;
+  z-index: 200;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 12px 20px;
+  border-radius: 0 0 8px 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ---------- Ciemna sekcja ze słowem (§5) ---------- */
+.night-wrap {
+  position: relative;
+  z-index: 2;
+}
+
+.night {
+  background: var(--night);
+  color: var(--night-ink);
+  border-radius: 40px 40px 0 0;
+  padding-block: clamp(72px, 12vh, 140px);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.night__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 4vh, 48px);
+}
+
+.night__label {
+  margin: 0;
+  font-family: 'Bricolage Grotesque Variable', 'Pawłowski Display', var(--font-fallback);
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--night-mute);
+}
+
+.slot__stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.slot__word {
+  display: block;
+  font-family: 'Bricolage Grotesque Variable', 'Pawłowski Display', var(--font-fallback);
+  font-size: clamp(48px, 11vw, 176px);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+  white-space: nowrap;
+  color: var(--night-ink);
+}
+
+.slot__word:last-child {
+  color: var(--signal-on-dark);
+}
+
+.night__counter {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--caption);
+  color: var(--night-mute);
+}
+
+.night__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--signal-on-dark);
+}
+
+.night__cta {
+  align-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 12px 26px;
+  border: 1px solid var(--night-mute);
+  border-radius: var(--radius-pill);
+  color: var(--night-ink);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    color var(--t-micro) ease,
+    border-color var(--t-micro) ease;
+}
+
+.night__cta:hover,
+.night__cta:focus-visible {
+  color: var(--signal-on-dark);
+  border-color: var(--signal-on-dark);
+}
+
+/* ---------- Realizacje (§6) ---------- */
+.realizacje__h2 {
+  font-family: 'Bricolage Grotesque Variable', 'Pawłowski Display', var(--font-fallback);
+  font-size: clamp(48px, 6.2vw, 104px);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  margin: 0 0 clamp(32px, 6vh, 72px);
+}
+
+.realizacje__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.project-row {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr auto auto;
+  gap: 1.5rem;
+  align-items: baseline;
+  padding-block: clamp(1.5rem, 3.5vh, 2.75rem);
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.project-row__name {
+  font-family: 'Bricolage Grotesque Variable', 'Pawłowski Display', var(--font-fallback);
+  font-size: clamp(36px, 4.4vw, 72px);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+  transition: color var(--t-micro) ease;
+}
+
+.project-row__name--mute {
+  color: var(--mute);
+}
+
+.project-row__type,
+.project-row__year {
+  font-size: var(--text);
+  color: var(--mute);
+}
+
+.project-row__arrow {
+  font-size: var(--text-lg);
+  color: var(--mute);
+  transition:
+    color var(--t-micro) ease,
+    transform var(--t-micro) ease;
+}
+
+.project-row__invite {
+  justify-self: start;
+  align-self: center;
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.project-row__invite:hover {
+  color: var(--signal);
+}
+
+@media (hover: hover) {
+  /* §7: hover changes colour AND the arrow moves (not colour alone). */
+  .project-row:hover .project-row__name {
+    color: var(--signal);
+    text-decoration: underline;
+    text-underline-offset: 0.12em;
+    text-decoration-thickness: 3px;
+  }
+
+  .project-row:hover .project-row__arrow {
+    color: var(--signal);
+    transform: translate(4px, -4px);
+  }
+}
+
+@media (max-width: 900px) {
+  .project-row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'name arrow'
+      'type type'
+      'year year';
+    row-gap: 0.5rem;
+  }
+
+  .project-row__name {
+    grid-area: name;
+  }
+
+  .project-row__arrow {
+    grid-area: arrow;
+  }
+
+  .project-row__type {
+    grid-area: type;
+  }
+
+  .project-row__year {
+    grid-area: year;
+  }
+
+  .project-row--invite {
+    grid-template-areas:
+      'name name'
+      'invite invite';
+  }
 }
 
 @media (max-width: 900px) {

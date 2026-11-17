@@ -14,7 +14,7 @@ export const site = {
 
   contact: {
     email: 'filip.pawlowski71@gmail.com',
-    phone: null, // owner decision (G0): no public phone for now
+    phone: '+48 884 898 970', // owner-provided (2026-11-17) for the "Zadzwoń" CTA (tel:)
   },
 
   legal: {
@@ -46,13 +46,27 @@ export const site = {
   },
 
   hero: {
-    // §7 VISUAL RESET — H1 in 3 editorial lines (§5.1).
+    // §3 VISUAL PATCH v3 — H1 in 3 editorial lines.
     h1: ['Strony internetowe,', 'po których klient', 'dzwoni.'],
     lead:
       'Projektuję i buduję strony dla małych firm i usługodawców: szybkie, czytelne, gotowe na telefon i na Google.',
-    // "Zadzwoń" (tel:) deliberately absent: no public phone (BRIEF §3, G0).
-    ctas: [{ href: '#kontakt', label: 'Napisz', variant: 'primary' }],
+    // §2.5: "Zadzwoń" (tel:) + "Napisz" (obrys).
+    ctas: [
+      { href: 'tel:+48884898970', label: 'Zadzwoń', variant: 'primary' },
+      { href: '#kontakt', label: 'Napisz', variant: 'outline' },
+    ],
   },
+
+  // §5 — the dark section word slot (targets of the offer, editable list).
+  nightWords: [
+    'hydraulików',
+    'elektryków',
+    'mechaników',
+    'fryzjerów',
+    'gabinetów',
+    'restauracji',
+    'Twojej firmy.',
+  ],
 
   // §5.3 — Zdanie przewodnie (words light up with scroll — Krok 3).
   guidingSentence:
@@ -118,11 +132,18 @@ export const site = {
     ],
   },
 
-  // §6 (VISUAL PATCH v3): projects list lives in `projects` below; the old
-  // case-study facts block (Problem / Co zrobiłem / Technologia i wyniki) is
-  // removed per patch §1.
-
-  projects: [],
+  // §6 (VISUAL PATCH v3): projects list; the old case-study facts block
+  // (Problem / Co zrobiłem / Technologia i wyniki) is removed per patch §1.
+  // New projects = new array item, no layout change.
+  projects: [
+    {
+      name: 'Koparki Pawłowski',
+      type: 'Strona firmowa',
+      year: 2026,
+      url: 'https://koparkapawlowski.pl/',
+      preview: '/media/case-desktop-thumb.webp',
+    },
+  ],
 
   standard: {
     id: 'standard',

@@ -1,0 +1,44 @@
+---
+// VISUAL PATCH v3 §5 (D3) — dark section "Robię strony dla …" with the word
+// slot. Static state (Krok 1): all words visible as a vertical list at full
+// opacity, rounded top corners (§4), counter + CTA. The pinned word switcher
+// (§5 motion) lands in Krok 2 and animates this exact markup.
+// Word list is editable in site.ts (nightWords).
+import T from './T.astro';
+import { site } from '../data/site';
+
+const words = site.nightWords;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<section class="night-wrap" data-night-wrap aria-labelledby="night-h">
+  <div class="night" data-night>
+    <div class="container night__inner">
+      <h2 class="night__label" id="night-h">Robię strony dla</h2>
+
+      {/* Full list for screen readers and the no-motion state (§5). */}
+      <ul class="sr-only">
+        {words.map((w) => <li><T text={w} /></li>)}
+      </ul>
+
+      <div class="slot" aria-hidden="true">
+        <div class="slot__stack" data-slot-stack>
+          {
+            words.map((w) => (
+              <span class="slot__word" data-slot-word>
+                <T text={w} />
+              </span>
+            ))
+          }
+        </div>
+      </div>
+
+      <p class="night__counter" data-slot-counter>
+        <span class="night__dot" aria-hidden="true"></span>
+        {pad(1)} / {pad(words.length)}
+      </p>
+
+      <a class="night__cta" data-slot-cta href="#kontakt">Napisz do mnie</a>
+    </div>
+  </div>
+</section>

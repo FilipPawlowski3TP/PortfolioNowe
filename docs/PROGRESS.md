@@ -131,3 +131,17 @@ Licznik zużycia (Krok 0/1): agent nie ma dostępu do licznika zużycia UI — d
 
 ## VISUAL RESET v2 — stan końcowy (2026-11-09)
 Kroki 0–5 zamknięte w gałęzi `visual-reset`. Lighthouse mobile 98/100/100/100 (LCP 2,4 s), desktop 100/100/100/100. axe 0. layout.mjs PASS. Anti-slop §11 ✓. Pozostało poza zakresem: fazy 6–9 (backend formularza/cookies/SEO techniczne/wdrożenie), `TODO_DOMENA` (decyzja użytkownika), brak telefonu (G0 — CTA „Zadzwoń" pominięte).
+
+## VISUAL PATCH v3 (2026-11-17) — gałąź `visual-patch-v3`
+
+### Krok 0 — Sprzątanie (§1)
+- Usunięto wyróżnienie Koparki z hero (miniatura, ramka, przewijanie zrzutu, pigułka), blok „Problem / Co zrobiłem / Technologia i wyniki" (CaseStudy.astro), hero-window.ts oraz 2 duże zrzuty (case-desktop-full 342 KB, case-mobile-full 162 KB). Zostawiono miniatury (27/65 KB) jako `preview` projektu (§6).
+- `astro build` ✓ (4 strony), `astro check` 0 błędów/0 ostrzeżeń. `npm run build` failuje wyłącznie na `TODO_DOMENA` (użytkownik: „Domeny narazie nie ma" — bramka placeholderów działa prawidłowo; do podmiany po rejestracji domeny).
+- Dane od użytkownika (2026-11-17): telefon **+48 884 898 970** (przycisk „Zadzwoń", tel:), rok realizacji Koparki **2026**.
+
+### Krok 1 — Poprawki i statyczny układ (§2, §3, §5, §6)
+- §2: skip link ukryty do fokusu kl. (visually-hidden + :focus-visible); wordmark stopki mieści się w oknie (11vw, przycięcie tylko od dołu); zegar „Wrocław, HH:MM" bez dnia (15 px, --mute); „Czego potrzebuję od Ciebie" 16 px; hover wierszy oferty bez przesunięć transform (kolor + podkreślenie + strzałka + rysowana linia); kontener min(1760px, 92vw), padding clamp(20px, 5.5vw, 120px).
+- §3 hero: H1 „Strony internetowe, / po których klient / dzwoni." (data-hero-line, clamp(52px, 8.6vw, 168px), lh 0.92, tracking −0,045em); sub: lead (480 px) + „Zadzwoń" (tel:+48884898970, tło --ink) + „Napisz" (obrys); stopy: „Najnowsza realizacja: Koparki Pawłowski ↗" (15 px, --mute, nazwa 600+podkreślenie) / „Przewiń ↓".
+- §5 ciemna sekcja: „Robię strony dla" + 7 słów (site.nightWords), rog 40 px, licznik „01 / 07" z kropką --signal-on-dark, „Napisz do mnie", ostatnie słowo --signal-on-dark; statycznie pełna lista (tryb bez ruchu); kontrasty --night-mute/--signal-on-dark na --night ≥ 4,5:1.
+- §6 Realizacje: wiersz-link (nazwa clamp(36px, 4.4vw, 72px), rodzaj, rok 2026, ↗; target=_blank rel=noopener) + stały wiersz „Twoja firma?" → #kontakt; nowe projekty = nowy wpis tablicy. Kolejność i nawigacja wg §1 (Realizacje · Oferta · Proces · FAQ + Napisz).
+- Dowody: layout.mjs PASS — 74 820 par (szerokości 360–2560), 0 kolizji/0 poza/0 hScroll; wordsBad 0; wordmarkOver 0; skipHidden ✓; gate-v3-1: axe serious/critical 0 (desktop/mobile/2560) = kontrast ≥ 4,5:1 ✓, skip link fokus ✓, 0 błędów konsoli; mozaika docs/qa/visual-patch-v3/mosaic-k1.png.

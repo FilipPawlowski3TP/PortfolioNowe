@@ -63,32 +63,59 @@
 }
 
 .hero__inner {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: clamp(16px, 2vw, 32px);
-  row-gap: clamp(16px, 2.5vh, 28px);
-  align-items: start;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(20px, 3vh, 40px);
   width: 100%;
+  min-height: calc(100vh - var(--header-h));
+  padding-block: clamp(24px, 4vh, 56px) clamp(24px, 3vh, 40px);
 }
 
 .hero__h1 {
-  grid-column: 1 / -1;
+  margin: 0;
 }
 
 .hero__line {
   display: block;
 }
 
-.hero__text {
-  grid-column: 1 / span 5;
+.hero__sub {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  align-items: flex-start;
 }
 
 .hero__lead {
-  max-width: 470px;
+  max-width: 480px;
   color: var(--ink-70);
+  margin: 0;
+}
+
+/* §3: foot row — latest realization (left), scroll hint (right), 15px. */
+.hero__foot {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1.5rem;
+  font-size: 15px;
+  color: var(--mute);
+}
+
+.hero__foot p {
+  margin: 0;
+}
+
+.hero__latest a {
+  color: var(--mute);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.hero__latest a:hover {
+  color: var(--signal);
 }
 
 .hero__ctas {

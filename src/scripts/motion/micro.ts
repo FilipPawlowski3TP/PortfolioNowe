@@ -7,19 +7,15 @@ import { gsap } from 'gsap';
 // §5.4: "Wrocław · 14:32 · poniedziałek", live, Europe/Warsaw, every 30 s.
 export function initClock(): void {
   const timeEl = document.querySelector<HTMLElement>('[data-clock-time]');
-  const dayEl = document.querySelector<HTMLElement>('[data-clock-day]');
-  if (!timeEl || !dayEl) return;
+  if (!timeEl) return;
+  // §2.3 patch v3: "Wrocław, 20:36" — no weekday.
   const fmt = new Intl.DateTimeFormat('pl-PL', {
     timeZone: 'Europe/Warsaw',
     hour: '2-digit',
     minute: '2-digit',
-    weekday: 'long',
   });
   const tick = () => {
-    const parts = fmt.formatToParts(new Date());
-    const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
-    timeEl.textContent = `${get('hour')}:${get('minute')}`;
-    dayEl.textContent = get('weekday');
+    timeEl.textContent = fmt.format(new Date());
   };
   tick();
   window.setInterval(tick, 30_000);
