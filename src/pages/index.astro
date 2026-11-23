@@ -1,15 +1,18 @@
 ---
-// VISUAL PATCH v3 (user decisions 2026-11-17): multi-page site — the dark
-// word section is removed, FAQ and Kontakt live on their own pages.
-// Homepage order: Hero → Zdanie przewodnie → Realizacje → Oferta → Proces.
-// SeoHead + JSON-LD untouched.
+// Krok 5 (2026-11-23, owner direction): clarity rework inspired by
+// grafik-24.pl — scannable blocks with icons, clear section rhythm, closing
+// CTA band. Flow: Hero → zdanie → Oferta (co robię) → Standard (co dostajesz)
+// → Realizacje (dowody) → Proces (jak) → CTA. Multi-page: FAQ + Kontakt
+// live on their own pages. SeoHead + JSON-LD untouched.
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Guiding from '../components/Guiding.astro';
-import Realizacje from '../components/Realizacje.astro';
 import Offer from '../components/Offer.astro';
+import Standard from '../components/Standard.astro';
+import Realizacje from '../components/Realizacje.astro';
 import Process from '../components/Process.astro';
+import CtaBand from '../components/CtaBand.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/interactions.css';
 ---
@@ -22,9 +25,11 @@ import '../styles/interactions.css';
          z-index 2) while the pinned hero drifts underneath. -->
     <div class="after-hero" data-curtain>
       <Guiding />
-      <Realizacje />
       <Offer />
+      <Standard />
+      <Realizacje />
       <Process />
+      <CtaBand />
     </div>
   </main>
   <Footer giant />

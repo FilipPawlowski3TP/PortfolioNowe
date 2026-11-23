@@ -30,8 +30,8 @@ export const site = {
     // Multi-page (user decision 2026-11-17): FAQ and Kontakt are own pages;
     // hash links work from every page.
     links: [
-      { href: '/#realizacje', label: 'Realizacje' },
       { href: '/#oferta', label: 'Oferta' },
+      { href: '/#realizacje', label: 'Realizacje' },
       { href: '/#proces', label: 'Proces' },
       { href: '/faq/', label: 'FAQ' },
     ],
@@ -58,9 +58,12 @@ export const site = {
     ],
   },
 
-  // §5.3 — Zdanie przewodnie (words light up with scroll — Krok 3).
+  // §5.3 — Zdanie przewodnie (words light up with scroll). Krok 5: the giant
+  // line carries one sentence (scannable), the second is a small note below.
   guidingSentence:
-    'Strona firmy ma jedno zadanie: sprawić, żeby klient w kilka sekund zrozumiał, czym się zajmujesz i jak się z Tobą skontaktować. Całą resztę, od animacji po kod, robię po to, żeby to zadanie wykonywała bez zgrzytów.',
+    'Strona firmy ma jedno zadanie: sprawić, żeby klient w kilka sekund zrozumiał, czym się zajmujesz i jak się z Tobą skontaktować.',
+  guidingNote:
+    'Całą resztę, od animacji po kod, robię po to, żeby to zadanie wykonywała bez zgrzytów.',
 
   offer: {
     id: 'oferta',
@@ -70,6 +73,7 @@ export const site = {
     services: [
       {
         name: 'Strona firmowa (wielostronicowa)',
+        icon: 'window',
         featured: true,
         what: 'Kilka podstron, osobne strony usług i miejsce, żeby rosnąć w Google.',
         forWho: 'Dla firmy z konkretną ofertą, która chce być widoczna w swojej okolicy.',
@@ -77,16 +81,19 @@ export const site = {
       },
       {
         name: 'Strona-wizytówka (one-page)',
+        icon: 'card',
         what: 'Wszystko na jednej stronie: oferta, zaufanie i kontakt.',
         forWho: 'Na start — gdy nie masz jeszcze strony i chcesz szybko być w internecie.',
       },
       {
         name: 'Landing page pod kampanię',
+        icon: 'target',
         what: 'Jedna strona skupiona na jednym działaniu — pod reklamę, ofertę sezonową lub nowy produkt.',
         forWho: 'Gdy potrzebujesz konkretu, nie całego serwisu.',
       },
       {
         name: 'Opieka po wdrożeniu',
+        icon: 'shield',
         what: 'Hosting, drobne zmiany, kopie zapasowe i aktualizacje — strona żyje, a Ty masz spokój.',
         forWho: 'Gdy nie chcesz zajmować się stroną po jej oddaniu.',
       },
@@ -101,21 +108,25 @@ export const site = {
     steps: [
       {
         name: 'Rozmowa',
+        icon: 'chat',
         what: 'Piszesz, czego potrzebujesz. Zadaję kilka pytań i proponuję kierunek.',
         fromYou: 'Krótki opis firmy i celu strony.',
       },
       {
         name: 'Projekt i akceptacja',
+        icon: 'pencil',
         what: 'Przygotowuję projekt wyglądu i treści. Poprawiasz, aż będzie po Twojemu.',
         fromYou: 'Materiały, które masz — teksty, zdjęcia, logo. Jeśli czegoś brakuje, pomogę.',
       },
       {
         name: 'Budowa',
+        icon: 'layers',
         what: 'Składam stronę: szybką, czytelną na telefonie i przygotowaną na Google.',
         fromYou: 'Informacja zwrotna na etapach — bez pośpiechu, ale bez ciszy.',
       },
       {
         name: 'Start i opieka',
+        icon: 'flag',
         what: 'Publikuję stronę, podłączam domenę i pokazuję, jak z niej korzystać.',
         fromYou: 'Domena i serwer — pomogę wybrać i podłączyć.',
       },
@@ -143,18 +154,22 @@ export const site = {
     items: [
       {
         name: 'Szybkość, którą widać',
+        icon: 'bolt',
         what: 'Strony buduję lekkie od podstaw — klienci nie lubią czekać, a Google to zauważa.',
       },
       {
         name: 'Telefon przede wszystkim',
+        icon: 'phone',
         what: 'Większość Twoich klientów obejrzy stronę na telefonie. Dlatego projektuję najpierw pod telefony, nie pod duże ekrany.',
       },
       {
         name: 'Widoczność w Google',
+        icon: 'search',
         what: 'Czysta struktura, sensowne opisy i szybkość — żeby klienci znajdowali Cię sami.',
       },
       {
         name: 'Twoja strona, nie wypożyczona',
+        icon: 'key',
         what: 'Po oddaniu projektu strona należy do Ciebie. Bez abonamentów i bez zaskoczeń.',
       },
     ],

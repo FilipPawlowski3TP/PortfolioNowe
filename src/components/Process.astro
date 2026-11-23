@@ -1,39 +1,38 @@
 ---
-// VISUAL RESET v2 §5.5 — Proces: sticky heading + 4 steps. Numbering is
-// justified: this is a real sequence (§5.5).
+// Krok 5 (przejrzystość): Proces as a scannable 4-step band — number +
+// icon + short name + one line + "Od Ciebie" chip. Real sequence, real
+// numbering (unchanged content).
 import T from './T.astro';
+import Icon from './Icon.astro';
 import { site } from '../data/site';
-
-const nums = ['01', '02', '03', '04'];
 ---
 
 <section class="section process" id={site.process.id} aria-labelledby="process-h2">
-  <div class="container process__grid">
-    <div class="process__sticky">
-      <h2 id="process-h2">
-        <T text={site.process.heading} />
-      </h2>
-    </div>
+  <div class="container">
+    <h2 id="process-h2">
+      <T text={site.process.heading} />
+    </h2>
 
-    <ol class="process__steps">
+    <ol class="steps">
       {
         site.process.steps.map((step, i) => (
-          <li class="process-step">
-            <span class="process-step__num" aria-hidden="true">
-              {nums[i] ?? String(i + 1).padStart(2, '0')}
-            </span>
-            <div class="process-step__body">
-              <h3>
-                <T text={step.name} />
-              </h3>
-              <p class="process-step__what">
-                <T text={step.what} />
-              </p>
-              <p class="process-step__fromyou">
-                <strong>Czego potrzebuję od Ciebie:</strong>
-                <T text={step.fromYou} />
-              </p>
+          <li class="step">
+            <div class="step__top">
+              <span class="step__num" aria-hidden="true">
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <Icon name={step.icon} />
             </div>
+            <h3 class="step__name">
+              <T text={step.name} />
+            </h3>
+            <p class="step__what">
+              <T text={step.what} />
+            </p>
+            <p class="step__fromyou">
+              <strong>Od Ciebie:</strong>
+              <T text={step.fromYou} />
+            </p>
           </li>
         ))
       }

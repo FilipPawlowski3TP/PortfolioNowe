@@ -1,43 +1,48 @@
 ---
-// VISUAL RESET v2 §5.4 — Oferta: numbered rows (01–04), no cards.
-// Hover (desktop): row shifts 12px, number and arrow turn --signal (Krok 3
-// adds the drawn line on enter; static here).
+// Krok 5 (przejrzystość dla Kowalskiego): Oferta as scannable service
+// blocks — icon + short name + one line "co" + one line "dla kogo", like
+// grafik-24.pl's clarity rhythm but in our paper/ink language (hairlines,
+// no cards, no shadows). Content unchanged (site.offer — zero new claims).
 import T from './T.astro';
+import Icon from './Icon.astro';
 import { site } from '../data/site';
-
-const nums = ['01', '02', '03', '04', '05', '06'];
 ---
 
 <section class="section offer" id={site.offer.id} aria-labelledby="offer-h2">
   <div class="container">
-    <div class="offer__head">
-      <h2 id="offer-h2">
-        <T text={site.offer.heading} />
-      </h2>
-    </div>
+    <h2 id="offer-h2">
+      <T text={site.offer.heading} />
+    </h2>
+    <p class="offer__intro">
+      <T text={site.offer.intro} />
+    </p>
 
-    <ol class="offer__rows">
+    <div class="svc-grid">
       {
-        site.offer.services.map((service, i) => (
-          <li class="offer-row">
-            <span class="offer-row__num" aria-hidden="true">
-              {nums[i] ?? String(i + 1).padStart(2, '0')}
-            </span>
-            <h3 class="offer-row__name">
-              <T text={service.name} />
+        site.offer.services.map((s) => (
+          <article class="svc">
+            <Icon name={s.icon} />
+            <h3 class="svc__name">
+              <T text={s.name} />
             </h3>
-            <p class="offer-row__desc">
-              <T text={service.what} />
+            <p class="svc__what">
+              <T text={s.what} />
             </p>
-            <span class="offer-row__arrow" aria-hidden="true">
-              →
-            </span>
-            <svg class="offer-row__line" aria-hidden="true" width="100%" height="2" viewBox="0 0 100 2" preserveAspectRatio="none">
-              <line x1="0" y1="1" x2="100" y2="1" pathLength="100"></line>
-            </svg>
-          </li>
+            <p class="svc__for">
+              <T text={s.forWho} />
+            </p>
+            {'cta' in s && (
+              <a class="svc__cta" href="/kontakt/">
+                {s.cta} →
+              </a>
+            )}
+          </article>
         ))
       }
-    </ol>
+    </div>
+
+    <p class="offer__pricing">
+      <T text={site.offer.pricing} />
+    </p>
   </div>
 </section>

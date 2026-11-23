@@ -161,3 +161,10 @@ Kroki 0–5 zamknięte w gałęzi `visual-reset`. Lighthouse mobile 98/100/100/1
 - Layout PASS ×3 trasy (28 016 / 6 000 / 8 085 par, 360–2560); axe serious/critical 0 ×3.
 - Lighthouse mobile: P98 / A11y100 / BP100 / SEO100 (FCP 1,2 s, LCP 2,3 s, TBT 80 ms, CLS 0).
 - Cookies/żądania: 0 cookies, 0 requestów zewnętrznych (bez zmian vs v1). Placeholdery: tylko TODO_DOMENA (świadoma blokada). Anty-slop: 0 trafień poza sanctioned exception (linia oferty + cień karty podglądu §6).
+
+### Krok 5 (2026-11-23) — Przejrzystość dla Kowalskiego (kierunek: grafik-24.pl)
+- Decyzja właściciela: układ ma być skanowalny („ikonka, coś ten"), nie gazeta do czytania — inspiracja rytmem grafik-24.pl (bloki usług, siatka atutów, domykające CTA) w naszej estetyce (linie włosowe + oddech, bez kart/cieni/gradientów).
+- Nowy rytm strony: Hero → Zdanie (1 zdanie wielkie + notka) → Oferta (4 bloki usług: ikona + nazwa + „co" + „dla kogo" + CTA) → Standard (4 atuty z ikonami) → Realizacje → Proces (4 kroki: numer + ikona + nazwa + „co" + chip „Od Ciebie") → CTA band („Porozmawiajmy…", Zadzwoń/Napisz, link do FAQ) → stopka.
+- Nawigacja: Oferta · Realizacje · Proces · FAQ + „Napisz" (kolejność jak przepływ strony). Ikony: 12 cienkich SVG (Icon.astro), aria-hidden, obok tekstu. Treści bez zmian (zero nowych twierdzeń); zdanie przewodnie skrócone do 1 zdania + notka (druga część).
+- Uwaga: blok „Co dostajesz w każdej stronie" (site.standard, TODO_PRZEWAGI) włączony do strony — wymaga potwierdzenia właściciela.
+- Dowody: build ✓, astro check 0 błędów; layout.mjs PASS / 67 926 par, /faq/ 6 000, /kontakt/ 8 085; axe serious/critical 0 ×3; Lighthouse mobile P97/A11y100/BP100/SEO100; mozaika mosaic-k1.png (po zmianach).
