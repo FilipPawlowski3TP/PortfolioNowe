@@ -51,22 +51,27 @@ export function initHeadingReveals(): void {
   }
 }
 
-// §6: "Zdanie przewodnie: kolejne wiersze wjeżdżają od dołu z lekkim
-// przesunięciem w osi Y i opóźnieniem 50 ms".
-export function initGuidingReveal(): void {
+// Patch §1: the guiding sentence lights up word by word as the page scrolls
+// (scrubbed; opacity only — the §7 motion whitelist). aria:'none': the <p>
+// has a generic role, aria-label on it is prohibited (axe).
+export function initGuidingWords(): void {
   const el = document.querySelector<HTMLElement>('.guiding__text');
   if (!el) return;
   const split = SplitText.create(el, {
-    type: 'lines',
-    aria: 'none', // aria:'auto' would put aria-label on the <p> (prohibited on generic role; axe)
-    linesClass: 'split-line',
+    type: 'words',
+    aria: 'none',
+    wordsClass: 'split-word',
   });
-  gsap.from(split.lines, {
-    y: 32,
-    opacity: 0,
-    duration: 0.55,
-    stagger: 0.05,
-    ease: 'power2.out',
-    scrollTrigger: { trigger: el, start: 'top 85%', once: true },
-  });
+  gsap.fromTo(
+    split.words,
+    // 0.6 is the dim floor: blended over --paper it keeps contrast ~4.8:1
+    // (axe/Lighthouse colour-contrast), while 1 is the lit state.
+    { opacity: 0.6 },
+    {
+      opacity: 1,
+      ease: 'none',
+      stagger: 0.5,
+      scrollTrigger: { trigger: el, start: 'top 80%', end: 'bottom 45%', scrub: true },
+    },
+  );
 }

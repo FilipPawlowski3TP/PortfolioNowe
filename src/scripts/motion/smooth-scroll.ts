@@ -1,6 +1,5 @@
 // Lenis smooth scroll synced with GSAP ScrollTrigger (MASTERPROMPT załącznik A).
-// One animation loop: gsap.ticker drives Lenis; the WebGL renderer joins the
-// same ticker in Phase 5. No extra requestAnimationFrame anywhere.
+// One animation loop: gsap.ticker drives Lenis. No extra requestAnimationFrame anywhere.
 import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { gsap } from 'gsap';

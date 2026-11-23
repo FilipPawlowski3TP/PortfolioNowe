@@ -8,7 +8,8 @@ import { initSmoothScroll, initAnchors, initScrollspy } from './motion/smooth-sc
 import { initMenu } from './motion/menu';
 import { initHeroCurtain } from './motion/hero-curtain';
 import { initClock, initCopyEmail, initAccordion, initHeaderHide } from './motion/micro';
-import { initIntro, initHeadingReveals, initGuidingReveal } from './motion/reveals';
+import { initIntro, initHeadingReveals, initGuidingWords } from './motion/reveals';
+import { initProjectPreview } from './motion/project-preview';
 
 declare global {
   interface Window {
@@ -36,7 +37,8 @@ export function initMotion(): void {
   initHeaderHide();
   initIntro();
   initHeadingReveals();
-  initGuidingReveal();
+  initGuidingWords();
+  initProjectPreview();
 
   window.__MOTION_READY__ = true;
 

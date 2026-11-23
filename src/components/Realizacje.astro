@@ -14,10 +14,19 @@ import { site } from '../data/site';
       {
         site.projects.map((p) => (
           <li>
-            <a class="project-row" href={p.url} target="_blank" rel="noopener">
+            <a class="project-row" href={p.url} target="_blank" rel="noopener" data-preview={p.preview}>
               <span class="project-row__name">
                 <T text={p.name} />
               </span>
+              <img
+                class="project-row__thumb"
+                src={p.preview}
+                alt=""
+                width="300"
+                height="190"
+                loading="lazy"
+                decoding="async"
+              />
               <span class="project-row__type">
                 <T text={p.type} />
               </span>
@@ -36,5 +45,8 @@ import { site } from '../data/site';
         </div>
       </li>
     </ul>
+
+    <!-- §6: one floating preview card (fine pointers; JS moves it). -->
+    <img class="project-preview" alt="" aria-hidden="true" decoding="async" />
   </div>
 </section>

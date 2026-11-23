@@ -151,3 +151,13 @@ Kroki 0–5 zamknięte w gałęzi `visual-reset`. Lighthouse mobile 98/100/100/1
 - §4 ruch: hero-curtain.ts — hero przypięte (pin, pinSpacing:false, scrub), linie H1 rozjeżdżają się x ±0,18/0,17/-0,11 szer. (opacity 0,5/0,32/0,18), sub → y:-40/fade; kurtyna = cały blok treści po hero (`.after-hero`, z-index 2, nieprzezroczysty, rog 40→0 scrubowany). §3 intro: expo.out, stagger 0,08 (SplitText mask lines). Nagłówek: z-index 10 (ponad kurtyną).
 - Poprawka testu §9 (metodologia): widoczność pary liczona w punkcie nakładki (paintedAt — przezroczysty tekst na wierzchu = kolizja; nieprzezroczysty panel = przykryte), centrum z rectów przyciętych do viewportu; heroDrift zwolniony z testu „poza ekranem" (§4 celowo wypycha linie).
 - Dowody: layout.mjs PASS — / (28 016 par), /faq/ (6 000), /kontakt/ (8 085) — 0 kolizji/0 poza/0 hScroll (360–2560); gate-v3-2: ciągłość odpięcia max krok 10 px (brak skoku), 0 błędów konsoli (desktop/mobile), reduce: h1 opacity 1; no-JS: h1 widoczny + CTA „Zadzwoń"/„Napisz" + 1894 zn. treści; axe serious/critical 0 na /faq/ i /kontakt/; astro check 0 błędów; mozaiki mosaic-k1.png (układ) i mosaic-k2.png (hero+kurtyna).
+
+### Krok 3 (2026-11-23) — Reszta (§6 podgląd + zdanie przewodnie)
+- Podgląd realizacji: pływająca karta 300×190 (róg 12 px, cień, obrót −3°) za kursorem (gsap.quickTo, fine pointer), przy fokusie klawiatury w stałym miejscu przy wierszu, na dotyku/mobile/reduce — miniatura statyczna 300×190 pod nazwą. Hover/fokus: nazwa+strzałka --signal, podkreślenie, strzałka translate(4,-4) (§7).
+- Zdanie przewodnie „zapalane" słowami ze scrollem: SplitText type:words (aria:'none'), scrub opacity 0.6→1 (próg 0.6 = kontrast ~4,8:1 — wymóg axe/Lighthouse).
+- Dowody: hover karta opacity 1 + rotate(-3deg) + src miniatury; fokus karta opacity 1; mobile thumb 300×190 display:block; słowa 0.6→1; 0 błędów konsoli (sonda Playwright). Sprzątka: martwy komentarz WebGL w smooth-scroll.ts.
+
+### Krok 4 (2026-11-23) — QA (szczegóły w docs/QA_REPORT.md)
+- Layout PASS ×3 trasy (28 016 / 6 000 / 8 085 par, 360–2560); axe serious/critical 0 ×3.
+- Lighthouse mobile: P98 / A11y100 / BP100 / SEO100 (FCP 1,2 s, LCP 2,3 s, TBT 80 ms, CLS 0).
+- Cookies/żądania: 0 cookies, 0 requestów zewnętrznych (bez zmian vs v1). Placeholdery: tylko TODO_DOMENA (świadoma blokada). Anty-slop: 0 trafień poza sanctioned exception (linia oferty + cień karty podglądu §6).
