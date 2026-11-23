@@ -24,7 +24,7 @@ export const site = {
     nip: null,
   },
 
-  domain: 'TODO_DOMENA',
+  domain: 'portfolionowe.aryformatnew.workers.dev',
 
   nav: {
     // Multi-page (user decision 2026-11-17): FAQ and Kontakt are own pages;

@@ -3,9 +3,9 @@ import { defineConfig, fontProviders } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
-// TODO_DOMENA — fill in before production build (check-placeholders gate)
+// Production site URL (check-placeholders gate verifies no TODO_ in output).
 export default defineConfig({
-  site: 'https://TODO_DOMENA',
+  site: 'https://portfolionowe.aryformatnew.workers.dev',
   trailingSlash: 'always',
   build: {
     format: 'directory',
