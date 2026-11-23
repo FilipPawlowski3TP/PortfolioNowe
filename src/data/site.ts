@@ -27,14 +27,15 @@ export const site = {
   domain: 'TODO_DOMENA',
 
   nav: {
-    // §5 VISUAL RESET: Realizacje · Oferta · Proces · FAQ + CTA "Napisz".
+    // Multi-page (user decision 2026-11-17): FAQ and Kontakt are own pages;
+    // hash links work from every page.
     links: [
-      { href: '#realizacje', label: 'Realizacje' },
-      { href: '#oferta', label: 'Oferta' },
-      { href: '#proces', label: 'Proces' },
-      { href: '#faq', label: 'FAQ' },
+      { href: '/#realizacje', label: 'Realizacje' },
+      { href: '/#oferta', label: 'Oferta' },
+      { href: '/#proces', label: 'Proces' },
+      { href: '/faq/', label: 'FAQ' },
     ],
-    cta: { href: '#kontakt', label: 'Napisz' },
+    cta: { href: '/kontakt/', label: 'Napisz' },
   },
 
   seo: {
@@ -50,23 +51,12 @@ export const site = {
     h1: ['Strony internetowe,', 'po których klient', 'dzwoni.'],
     lead:
       'Projektuję i buduję strony dla małych firm i usługodawców: szybkie, czytelne, gotowe na telefon i na Google.',
-    // §2.5: "Zadzwoń" (tel:) + "Napisz" (obrys).
+    // §2.5: "Zadzwoń" (tel:) + "Napisz" (obrys) — Kontakt is its own page now.
     ctas: [
       { href: 'tel:+48884898970', label: 'Zadzwoń', variant: 'primary' },
-      { href: '#kontakt', label: 'Napisz', variant: 'outline' },
+      { href: '/kontakt/', label: 'Napisz', variant: 'outline' },
     ],
   },
-
-  // §5 — the dark section word slot (targets of the offer, editable list).
-  nightWords: [
-    'hydraulików',
-    'elektryków',
-    'mechaników',
-    'fryzjerów',
-    'gabinetów',
-    'restauracji',
-    'Twojej firmy.',
-  ],
 
   // §5.3 — Zdanie przewodnie (words light up with scroll — Krok 3).
   guidingSentence:

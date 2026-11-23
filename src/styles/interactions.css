@@ -7,6 +7,7 @@
 .site-header {
   position: sticky;
   top: 0;
+  z-index: 10; /* above the §4 curtain (z-index 2) */
   transition: transform 0.25s ease;
 }
 

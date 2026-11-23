@@ -6,6 +6,7 @@
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initSmoothScroll, initAnchors, initScrollspy } from './motion/smooth-scroll';
 import { initMenu } from './motion/menu';
+import { initHeroCurtain } from './motion/hero-curtain';
 import { initClock, initCopyEmail, initAccordion, initHeaderHide } from './motion/micro';
 import { initIntro, initHeadingReveals, initGuidingReveal } from './motion/reveals';
 
@@ -30,6 +31,7 @@ export function initMotion(): void {
   const lenis = initSmoothScroll();
   initAnchors(lenis);
   initMenu(lenis);
+  initHeroCurtain();
   initAccordion();
   initHeaderHide();
   initIntro();

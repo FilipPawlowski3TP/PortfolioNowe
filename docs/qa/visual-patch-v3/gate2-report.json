@@ -1,0 +1,63 @@
+{
+  "states": {
+    "desktop": {
+      "consoleErrors": []
+    },
+    "mobile": {
+      "consoleErrors": []
+    }
+  },
+  "unpin": {
+    "footTopByScroll": [
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      815,
+      807,
+      797,
+      787,
+      777,
+      767,
+      757,
+      747,
+      737,
+      727,
+      717,
+      707,
+      697,
+      687,
+      677,
+      667
+    ],
+    "maxStepPx": 10,
+    "pass": true
+  },
+  "reducedMotion": {
+    "h1Opacity": "1",
+    "text": true,
+    "htmlClass": "js"
+  },
+  "noJs": {
+    "h1Visible": true,
+    "h1Text": true,
+    "ctas": [
+      "Zadzwoń",
+      "Napisz"
+    ],
+    "bodyText": 1894
+  }
+}

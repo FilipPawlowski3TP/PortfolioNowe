@@ -12,12 +12,29 @@
 import { chromium } from 'playwright';
 import { writeFileSync } from 'node:fs';
 
-const BASE = 'http://127.0.0.1:4321/';
+const BASE = process.env.LAYOUT_BASE || 'http://127.0.0.1:4321/';
 const WIDTHS = [360, 390, 768, 1280, 1440, 1920, 2560];
 const SCROLLS = [0, 0.25, 0.5, 0.75, 1];
 
 const CHECK = () => {
   const SEL = 'h1, h2, h3, p, a, button, label, summary, figcaption';
+  // Is el painted at point (px, py)? A transparent text layer on top still
+  // shows el through — that overlap IS the glitch we must catch; an opaque
+  // panel on top (the §4 curtain, the sticky header) hides el — not a glitch.
+  const paintedAt = (el, px, py) => {
+    const hit = document.elementFromPoint(px, py);
+    if (!hit) return true;
+    if (hit === el || el.contains(hit) || hit.contains(el)) return true;
+    let n = hit.parentElement;
+    while (n && n !== document.documentElement) {
+      if (n.contains(el) || el.contains(n)) return true; // same panel as el
+      const bg = getComputedStyle(n).backgroundColor;
+      const alpha = bg === 'transparent' ? 0 : bg.includes('rgba') ? parseFloat(bg.split(',')[3]) : 1;
+      if (alpha > 0.5) return false; // opaque panel covers el here
+      n = n.parentElement;
+    }
+    return true; // only transparent layers above el — el shows through
+  };
   const visible = (el) => {
     // Effective visibility: a child of a fully transparent parent is not
     // visible even though its own computed opacity is 1.
@@ -28,7 +45,11 @@ const CHECK = () => {
       n = n.parentElement;
     }
     const r = el.getBoundingClientRect();
-    return r.width > 0 && r.height > 0;
+    if (!(r.width > 0 && r.height > 0)) return false;
+    const cx = (r.left + r.right) / 2;
+    const cy = (r.top + r.bottom) / 2;
+    if (cx >= 0 && cy >= 0 && cx < innerWidth && cy < innerHeight) return paintedAt(el, cx, cy);
+    return true;
   };
   const hiddenFromA11y = (el) => !!el.closest('[aria-hidden="true"]');
 
@@ -81,16 +102,32 @@ const CHECK = () => {
   for (let i = 0; i < els.length; i++) {
     const a = els[i];
     const ra = clipped(a);
-    // 3) nothing outside the viewport
-    if (ra.left < -1 || ra.right > innerWidth + 1) {
+    // 3) nothing outside the viewport. The hero lines/sub are exempt: patch §4
+    // deliberately drifts them ±18% of the viewport width during the pin.
+    const heroDrift = !!a.closest('[data-hero]');
+    if (!heroDrift && ra.bottom > 0 && ra.top < innerHeight && (ra.left < -1 || ra.right > innerWidth + 1)) {
       outside.push(`${a.tagName}.${a.className || '-'}@${ra.left.toFixed(0)}..${ra.right.toFixed(0)}`);
     }
     for (let j = i + 1; j < els.length; j++) {
       const b = els[j];
       if (a.contains(b) || b.contains(a)) continue; // ancestor pairs excluded
       pairs++;
-      const area = inter(vp(ra), vp(clipped(b)));
-      if (area > 2) overlaps.push(`${a.tagName}.${a.className || '-'}/${b.tagName}.${b.className || '-'}:${area.toFixed(0)}`);
+      const rb = clipped(b);
+      const area = inter(vp(ra), vp(rb));
+      if (area > 2) {
+        // Both texts must be painted at the overlap centre — a text under an
+        // opaque panel (the §4 curtain, the sticky header) is hidden, not
+        // overlapping; a transparent text layer on top is a real glitch.
+        // The centre comes from viewport-clipped rects — an off-screen centre
+        // would make elementFromPoint return null and fake a visible overlap.
+        const va = vp(ra);
+        const vb = vp(rb);
+        const cx = (Math.max(va.left, vb.left) + Math.min(va.right, vb.right)) / 2;
+        const cy = (Math.max(va.top, vb.top) + Math.min(va.bottom, vb.bottom)) / 2;
+        if (paintedAt(a, cx, cy) && paintedAt(b, cx, cy)) {
+          overlaps.push(`${a.tagName}.${a.className || '-'}/${b.tagName}.${b.className || '-'}:${area.toFixed(0)}`);
+        }
+      }
     }
     // text over the realization thumbnail/window (the caption pill is the
     // sanctioned exception — §9 "poza pigułką z podpisem")

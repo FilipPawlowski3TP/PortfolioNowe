@@ -24,7 +24,7 @@ export function initIntro(): void {
     linesClass: 'split-line',
   });
 
-  const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+  const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
   tl.from(split.lines, { yPercent: 110, duration: 0.7, stagger: 0.08 }, 0).from(
     [lead, ctas].filter(Boolean),
     { y: 16, opacity: 0, duration: 0.35, stagger: 0.08 },

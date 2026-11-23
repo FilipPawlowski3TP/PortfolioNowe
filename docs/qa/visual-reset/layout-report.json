@@ -2,7 +2,7 @@
   "widths": {
     "360": {
       "hScroll": 0,
-      "pairs": 9760,
+      "pairs": 855,
       "overlaps": 0,
       "outside": 0,
       "wordsBad": [],
@@ -12,7 +12,7 @@
     },
     "390": {
       "hScroll": 0,
-      "pairs": 9760,
+      "pairs": 855,
       "overlaps": 0,
       "outside": 0,
       "wordsBad": [],
@@ -22,7 +22,7 @@
     },
     "768": {
       "hScroll": 0,
-      "pairs": 9760,
+      "pairs": 855,
       "overlaps": 0,
       "outside": 0,
       "wordsBad": [],
@@ -32,7 +32,7 @@
     },
     "1280": {
       "hScroll": 0,
-      "pairs": 11385,
+      "pairs": 1380,
       "overlaps": 0,
       "outside": 0,
       "wordsBad": [],
@@ -42,7 +42,7 @@
     },
     "1440": {
       "hScroll": 0,
-      "pairs": 11385,
+      "pairs": 1380,
       "overlaps": 0,
       "outside": 0,
       "wordsBad": [],
@@ -52,7 +52,7 @@
     },
     "1920": {
       "hScroll": 0,
-      "pairs": 11385,
+      "pairs": 1380,
       "overlaps": 0,
       "outside": 0,
       "wordsBad": [],
@@ -62,7 +62,7 @@
     },
     "2560": {
       "hScroll": 0,
-      "pairs": 11385,
+      "pairs": 1380,
       "overlaps": 0,
       "outside": 0,
       "wordsBad": [],
@@ -72,7 +72,7 @@
     }
   },
   "totals": {
-    "pairs": 74820,
+    "pairs": 8085,
     "overlaps": 0,
     "outside": 0,
     "hScroll": 0,

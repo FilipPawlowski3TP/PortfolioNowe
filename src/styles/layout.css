@@ -130,6 +130,16 @@
   border-block: 1px solid var(--line);
 }
 
+/* §4: the curtain — the whole page stack after the hero paints over the
+   pinned hero (z-index 2, opaque), with rounded top corners that flatten
+   as it docks (the one border-radius motion of §7). */
+.after-hero {
+  position: relative;
+  z-index: 2;
+  background: var(--paper);
+  border-radius: 40px 40px 0 0;
+}
+
 .guiding__text {
   max-width: 1100px;
   font-family: 'Bricolage Grotesque Variable', 'Pawłowski Display', var(--font-fallback);
