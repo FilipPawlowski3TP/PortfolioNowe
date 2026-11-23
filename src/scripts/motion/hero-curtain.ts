@@ -31,7 +31,9 @@ export function initHeroCurtain(): void {
     .to(lines[0], { x: () => innerWidth * -0.18, opacity: 0.5 }, 0)
     .to(lines[1], { x: () => innerWidth * 0.17, opacity: 0.32 }, 0)
     .to(lines[2], { x: () => innerWidth * -0.11, opacity: 0.18 }, 0)
-    .to('[data-hero-sub]', { y: -40, opacity: 0, duration: 0.4 }, 0);
+    .to('[data-hero-sub]', { y: -40, opacity: 0, duration: 0.4 }, 0)
+    // gentle depth: the decorative wireframe drifts slower than the text
+    .to('.hero__bg-art', { y: -48 }, 0);
 
   const curtain = document.querySelector<HTMLElement>('[data-curtain]');
   if (curtain) {

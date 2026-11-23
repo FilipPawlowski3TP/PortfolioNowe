@@ -72,6 +72,30 @@
   gap: clamp(20px, 3vh, 40px);
   width: 100%;
   flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+/* Krok 5: the hero background — dot grid + line-art wireframe (decorative). */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  color: var(--ink);
+}
+
+.hero__bg-art {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 900px) {
+  .hero__bg .wire {
+    display: none;
+  }
 }
 
 .hero__h1 {
