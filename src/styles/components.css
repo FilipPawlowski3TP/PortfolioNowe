@@ -505,28 +505,6 @@
   color: var(--mute);
 }
 
-/* Krok 5 (§8): the huge wordmark — §2.2 fix: it must FIT the window width
-   (nowrap, vw-sized), cropped at the BOTTOM only. Decorative sign-off
-   (aria-hidden; the name is in the content). */
-.site-footer__giant {
-  overflow: hidden;
-  margin-top: clamp(16px, 2.5vh, 32px);
-  line-height: 0.72;
-  user-select: none;
-}
-
-.site-footer__giant span {
-  display: block;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: clamp(2.5rem, 11vw, 16rem);
-  letter-spacing: -0.05em;
-  text-align: center;
-  white-space: nowrap;
-  color: var(--ink);
-  margin-bottom: -0.2em;
-}
-
 .site-footer a {
   color: var(--mute);
 }
