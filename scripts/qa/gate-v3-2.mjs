@@ -33,7 +33,7 @@ const run = async () => {
     const shots = [];
     for (const f of SCROLLS) {
       await page.evaluate((val) => window.scrollTo(0, val * (document.documentElement.scrollHeight - innerHeight)), f);
-      await page.waitForTimeout(450);
+      await page.waitForTimeout(1000); // settle: heading reveals finish in frame
       const path = `${OUT}/k2-${v.name}-${String(f * 100).padStart(3, '0')}.png`;
       await page.screenshot({ path });
       shots.push({ label: `${Math.round(f * 100)}%`, path });

@@ -29,7 +29,7 @@ const mosaic = async (browser, name, w, h) => {
   const shots = [];
   for (const f of SCROLLS) {
     await page.evaluate((v) => window.scrollTo(0, v * (document.documentElement.scrollHeight - window.innerHeight)), f);
-    await page.waitForTimeout(450);
+    await page.waitForTimeout(1000); // settle: heading reveals finish in frame
     const path = `${OUT}/k1-${name}-${String(f * 100).padStart(3, '0')}.png`;
     await page.screenshot({ path });
     shots.push({ label: `${Math.round(f * 100)}%`, path });

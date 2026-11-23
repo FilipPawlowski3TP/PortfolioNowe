@@ -364,7 +364,7 @@
    (aria-hidden; the name is in the content). */
 .site-footer__giant {
   overflow: hidden;
-  margin-top: clamp(32px, 6vh, 72px);
+  margin-top: clamp(16px, 2.5vh, 32px);
   line-height: 0.72;
   user-select: none;
 }

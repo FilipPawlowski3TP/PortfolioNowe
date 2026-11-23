@@ -50,10 +50,14 @@
   gap: 1.5rem;
 }
 
-/* ---------- Hero (Krok 2: pinned "wizytówka → strona" window) ---------- */
+/* ---------- Hero (§3/§4: kinetic hero + curtain) ---------- */
 .hero {
   position: relative;
-  min-height: 100vh;
+  z-index: 1;
+  /* exactly the viewport below the sticky header: the §3 foot row must be
+     inside the frame at scroll 0 (border-box keeps the padding inside). */
+  min-height: calc(100vh - var(--header-h));
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -67,16 +71,21 @@
   flex-direction: column;
   gap: clamp(20px, 3vh, 40px);
   width: 100%;
-  min-height: calc(100vh - var(--header-h));
-  padding-block: clamp(24px, 4vh, 56px) clamp(24px, 3vh, 40px);
+  flex: 1;
 }
 
 .hero__h1 {
   margin: 0;
+  /* §3 keeps the 3-line composition on phones: nowrap lines need a lower
+     floor than the spec's 52px (a desktop value — 8.6vw exceeds it above
+     ~605px, so desktop is unchanged). Scoped to the hero on purpose: the
+     --h1 token is shared with the legal pages. */
+  font-size: clamp(32px, 8.6vw, 168px);
 }
 
 .hero__line {
   display: block;
+  white-space: nowrap;
 }
 
 .hero__sub {
@@ -219,7 +228,7 @@
 /* ---------- Footer ---------- */
 .site-footer {
   border-top: 1px solid var(--line);
-  padding-block: 3rem;
+  padding-block: clamp(1.5rem, 3vh, 2.5rem) 3rem;
 }
 
 .site-footer__inner {
