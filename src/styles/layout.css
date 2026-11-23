@@ -140,7 +140,10 @@
   margin: 0;
 }
 
+/* Review fix D: the project name is a proper noun — never break mid-name;
+   the wrap (if any) falls before the link instead. */
 .hero__latest a {
+  white-space: nowrap;
   color: var(--mute);
   font-weight: 600;
   text-decoration: underline;
